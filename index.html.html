@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiyani Nkuna | Portfolio</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfeff',
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                            900: '#164e63',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Style Overrides -->
+    <style>
+        /* Custom scrollbar for dark UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262626;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0891b2;
+        }
+
+        /* Ambient Glow Effects */
+        .glow-bg {
+            background: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.15), transparent 70%);
+        }
+        
+        .card-glow:hover {
+            box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-neutral-950 text-slate-200 font-sans antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col justify-between">
+
+    <!-- ================= HEADER & NAVIGATION ================= -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand / Logo -->
+            <a href="#home" class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2 group">
+                <span class="text-brand-400 font-mono text-2xl group-hover:rotate-12 transition-transform duration-300">&lt;/&gt;</span>
+                <span class="bg-gradient-to-r from-white via-slate-200 to-brand-400 bg-clip-text text-transparent">Tiyani Nkuna</span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#home" class="text-slate-300 hover:text-brand-400 transition-colors">Home</a>
+                <a href="#about" class="text-slate-300 hover:text-brand-400 transition-colors">About</a>
+                <a href="#skills" class="text-slate-300 hover:text-brand-400 transition-colors">Skills</a>
+                <a href="#projects" class="text-slate-300 hover:text-brand-400 transition-colors">Projects</a>
+                <a href="#contact" class="text-slate-300 hover:text-brand-400 transition-colors">Contact</a>
+            </nav>
+
+            <!-- Desktop CTA -->
+            <div class="hidden md:block">
+                <a href="#contact" class="px-5 py-2.5 rounded-lg text-sm font-semibold bg-brand-500 hover:bg-brand-400 text-neutral-950 transition-all duration-300 shadow-lg shadow-brand-500/20 hover:shadow-brand-400/40">
+                    Let's Connect
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none p-2" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-neutral-900 border-b border-neutral-800 px-6 py-6 space-y-4">
+            <a href="#home" class="mobile-link block text-slate-200 hover:text-brand-400 font-medium">Home</a>
+            <a href="#about" class="mobile-link block text-slate-200 hover:text-brand-400 font-medium">About</a>
+            <a href="#skills" class="mobile-link block text-slate-200 hover:text-brand-400 font-medium">Skills</a>
+            <a href="#projects" class="mobile-link block text-slate-200 hover:text-brand-400 font-medium">Projects</a>
+            <a href="#contact" class="mobile-link block text-slate-200 hover:text-brand-400 font-medium">Contact</a>
+            <a href="#contact" class="mobile-link block w-full text-center py-2.5 rounded-lg bg-brand-500 text-neutral-950 font-semibold">Let's Connect</a>
+        </div>
+    </header>
+
+
+    <main class="flex-grow pt-20">
+
+        <!-- ================= HERO SECTION ================= -->
+        <section id="home" class="relative min-h-[calc(100vh-80px)] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 glow-bg overflow-hidden">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column: Bio Details & CTA -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left order-2 lg:order-1">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-400 text-xs font-mono">
+                        <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+                        Available for Industry Roles & Opportunities
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                        Tiyani Nkuna
+                    </h1>
+
+                    <p class="text-lg sm:text-xl font-medium text-brand-400">
+                        Future Business Analyst, Database Administrator & Tester
+                    </p>
+
+                    <p class="text-slate-400 max-w-2xl mx-auto lg:mx-0 text-base sm:text-lg leading-relaxed">
+                        Final-year Informatics student at Tshwane University of Technology. Specialized in translating complex business requirements into robust relational databases, scalable system architecture, and rigorously tested solutions.
+                    </p>
+
+                    <!-- Hero Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#projects" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-neutral-950 font-bold transition-all duration-300 text-center shadow-lg shadow-brand-500/25">
+                            <i class="fa-solid fa-briefcase mr-2"></i> View My Work
+                        </a>
+                        <a href="#contact" class="w-full sm:w-auto px-7 py-3.5 rounded-xl border border-neutral-700 bg-neutral-900/60 hover:bg-neutral-800 text-white font-semibold transition-all duration-300 text-center hover:border-slate-500">
+                            <i class="fa-solid fa-paper-plane mr-2"></i> Get In Touch
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Profile Image Container -->
+                <div class="lg:col-span-5 flex justify-center order-1 lg:order-2">
+                    <div class="relative group">
+                        <!-- Neon Glow Ring behind Image -->
+                        <div class="absolute -inset-1 bg-gradient-to-r from-brand-500 to-indigo-600 rounded-3xl blur-xl opacity-40 group-hover:opacity-75 transition duration-500"></div>
+                        
+                        <!-- Profile Image Box -->
+                        <div class="relative rounded-2xl overflow-hidden border-2 border-neutral-800 bg-neutral-900 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 shadow-2xl">
+                            <img src="Picture.jpeg" alt="Tiyani Nkuna" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= ABOUT SECTION ================= -->
+        <section id="about" class="py-24 bg-neutral-900/50 border-y border-neutral-800/60 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto space-y-12">
+                
+                <!-- Section Title -->
+                <div class="text-center max-w-3xl mx-auto space-y-3">
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-brand-400">Professional Journey</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold text-white">About Me</p>
+                    <div class="w-16 h-1 bg-brand-500 mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    
+                    <!-- Bio Content -->
+                    <div class="lg:col-span-7 space-y-6 text-slate-300 text-base leading-relaxed">
+                        <p class="text-lg text-white font-medium">
+                            I am a final-year <span class="text-brand-400 font-semibold">Informatics student at the Tshwane University of Technology (TUT)</span>, maintaining an academic average above <span class="text-brand-400 font-semibold">72%</span>.
+                        </p>
+                        <p>
+                            Driven by a deep passion for Information Technology, system architecture, and community-focused initiatives, I bridge the gap between technical execution and business needs. My academic background has equipped me with high-level competencies in analyzing organizational processes, modeling database schemas, and quality assurance testing.
+                        </p>
+                        <p>
+                            Beyond academia, I have actively demonstrated leadership and administrative capability across multiple student bodies. As **ICT Deputy Secretary** and **GKSS Treasurer**, I managed resources, coordinated operations, and advocated for technical progress. As a **Head Mentor at Student Town Residence**, I guide and support fellow university students in achieving their academic and personal goals.
+                        </p>
+                        <p>
+                            My technical dedication is further demonstrated by my hands-on operational experience independently managing evening computer laboratory operations and delivering technical support in demanding academic environments.
+                        </p>
+                    </div>
+
+                    <!-- Highlight Grid / Cards -->
+                    <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-5 rounded-xl bg-neutral-950 border border-neutral-800 space-y-2">
+                            <i class="fa-solid fa-graduation-cap text-2xl text-brand-400"></i>
+                            <h3 class="text-white font-bold text-base">Informatics Major</h3>
+                            <p class="text-xs text-slate-400">Tshwane University of Technology (&gt;72% Average)</p>
+                        </div>
+
+                        <div class="p-5 rounded-xl bg-neutral-950 border border-neutral-800 space-y-2">
+                            <i class="fa-solid fa-users-gear text-2xl text-brand-400"></i>
+                            <h3 class="text-white font-bold text-base">Leadership</h3>
+                            <p class="text-xs text-slate-400">ICT Deputy Secretary & GKSS Treasurer</p>
+                        </div>
+
+                        <div class="p-5 rounded-xl bg-neutral-950 border border-neutral-800 space-y-2">
+                            <i class="fa-solid fa-hands-holding-child text-2xl text-brand-400"></i>
+                            <h3 class="text-white font-bold text-base">Head Mentor</h3>
+                            <p class="text-xs text-slate-400">Student Town Residence Guidance & Support</p>
+                        </div>
+
+                        <div class="p-5 rounded-xl bg-neutral-950 border border-neutral-800 space-y-2">
+                            <i class="fa-solid fa-server text-2xl text-brand-400"></i>
+                            <h3 class="text-white font-bold text-base">Lab Management</h3>
+                            <p class="text-xs text-slate-400">Independent Evening Operations & IT Support</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= SKILLS SECTION ================= -->
+        <section id="skills" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <h2 class="text-xs font-mono uppercase tracking-widest text-brand-400">Core Competencies</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Technical & Leadership Skills</p>
+                <div class="w-16 h-1 bg-brand-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <!-- Technical Skills & Visual Progress Bars -->
+                <div class="space-y-6 bg-neutral-900/40 p-6 sm:p-8 rounded-2xl border border-neutral-800">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-code text-brand-400"></i> Technical Expertise
+                    </h3>
+
+                    <div class="space-y-5">
+                        <!-- Database Administration -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm font-medium">
+                                <span class="text-slate-200">Database Administration (MySQL & MS SQL Server)</span>
+                                <span class="text-brand-400 font-mono">90%</span>
+                            </div>
+                            <div class="w-full bg-neutral-800 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-brand-500 h-full rounded-full transition-all duration-1000" style="width: 90%;"></div>
+                            </div>
+                            <p class="text-xs text-slate-400">Constraint definitions, indexing optimization, foreign key schemas & maintenance.</p>
+                        </div>
+
+                        <!-- Systems Analysis -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm font-medium">
+                                <span class="text-slate-200">Systems Analysis & Design</span>
+                                <span class="text-brand-400 font-mono">85%</span>
+                            </div>
+                            <div class="w-full bg-neutral-800 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-brand-500 h-full rounded-full transition-all duration-1000" style="width: 85%;"></div>
+                            </div>
+                            <p class="text-xs text-slate-400">Requirement gathering, process modeling, state machines & architectural flow.</p>
+                        </div>
+
+                        <!-- Enterprise Architecture -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm font-medium">
+                                <span class="text-slate-200">Enterprise Architecture (TOGAF Framework)</span>
+                                <span class="text-brand-400 font-mono">80%</span>
+                            </div>
+                            <div class="w-full bg-neutral-800 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-brand-500 h-full rounded-full transition-all duration-1000" style="width: 80%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Java Development -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm font-medium">
+                                <span class="text-slate-200">Java Development</span>
+                                <span class="text-brand-400 font-mono">75%</span>
+                            </div>
+                            <div class="w-full bg-neutral-800 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-brand-500 h-full rounded-full transition-all duration-1000" style="width: 75%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Web Development Basics -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm font-medium">
+                                <span class="text-slate-200">Web Development Basics (HTML, CSS, JS)</span>
+                                <span class="text-brand-400 font-mono">75%</span>
+                            </div>
+                            <div class="w-full bg-neutral-800 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-brand-500 h-full rounded-full transition-all duration-1000" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soft Skills & Tool Badges -->
+                <div class="space-y-8 flex flex-col justify-between">
+                    
+                    <!-- Soft Skills Block -->
+                    <div class="bg-neutral-900/40 p-6 sm:p-8 rounded-2xl border border-neutral-800 space-y-6">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-chart-line text-brand-400"></i> Professional & Leadership Skills
+                        </h3>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="p-4 rounded-xl bg-neutral-950 border border-neutral-800 text-center">
+                                <i class="fa-solid fa-diagram-project text-2xl text-brand-400 mb-2"></i>
+                                <h4 class="text-sm font-semibold text-white">Project Management</h4>
+                            </div>
+                            <div class="p-4 rounded-xl bg-neutral-950 border border-neutral-800 text-center">
+                                <i class="fa-solid fa-calendar-check text-2xl text-brand-400 mb-2"></i>
+                                <h4 class="text-sm font-semibold text-white">Event Coordination</h4>
+                            </div>
+                            <div class="p-4 rounded-xl bg-neutral-950 border border-neutral-800 text-center">
+                                <i class="fa-solid fa-user-shield text-2xl text-brand-400 mb-2"></i>
+                                <h4 class="text-sm font-semibold text-white">Strategic Leadership</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tech Stack Badges -->
+                    <div class="bg-neutral-900/40 p-6 sm:p-8 rounded-2xl border border-neutral-800 space-y-4">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-screwdriver-wrench text-brand-400"></i> Tools & Ecosystem
+                        </h3>
+                        <div class="flex flex-wrap gap-2.5 pt-2">
+                            <span class="px-3.5 py-1.5 rounded-lg bg-neutral-950 border border-neutral-800 text-xs font-mono text-slate-300 flex items-center gap-2">
+                                <i class="fa-solid fa-database text-blue-400"></i> MySQL
+                            </span>
+                            <span class="px-3.5 py-1.5 rounded-lg bg-neutral-950 border border-neutral-800 text-xs font-mono text-slate-300 flex items-center gap-2">
+                                <i class="fa-solid fa-server text-red-400"></i> MS SQL Server
+                            </span>
+                            <span class="px-3.5 py-1.5 rounded-lg bg-neutral-950 border border-neutral-800 text-xs font-mono text-slate-300 flex items-center gap-2">
+                                <i class="fa-brands fa-java text-orange-400"></i> Java
+                            </span>
+                            <span class="px-3.5 py-1.5 rounded-lg bg-neutral-950 border border-neutral-800 text-xs font-mono text-slate-300 flex items-center gap-2">
+                                <i class="fa-solid fa-sitemap text-purple-400"></i> MS Visio
+                            </span>
+                            <span class="px-3.5 py-1.5 rounded-lg bg-neutral-950 border border-neutral-800 text-xs font-mono text-slate-300 flex items-center gap-2">
+                                <i class="fa-brands fa-html5 text-orange-500"></i> HTML5
+                            </span>
+                            <span class="px-3.5 py-1.5 rounded-lg bg-neutral-950 border border-neutral-800 text-xs font-mono text-slate-300 flex items-center gap-2">
+                                <i class="fa-brands fa-css3-alt text-blue-500"></i> CSS3
+                            </span>
+                            <span class="px-3.5 py-1.5 rounded-lg bg-neutral-950 border border-neutral-800 text-xs font-mono text-slate-300 flex items-center gap-2">
+                                <i class="fa-brands fa-js text-yellow-400"></i> JavaScript
+                            </span>
+                            <span class="px-3.5 py-1.5 rounded-lg bg-neutral-950 border border-neutral-800 text-xs font-mono text-slate-300 flex items-center gap-2">
+                                <i class="fa-solid fa-layer-group text-emerald-400"></i> TOGAF
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= PROJECTS SECTION ================= -->
+        <section id="projects" class="py-24 bg-neutral-900/50 border-y border-neutral-800/60 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto space-y-12">
+                
+                <!-- Section Header -->
+                <div class="text-center max-w-3xl mx-auto space-y-3">
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-brand-400">Featured Portfolio</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold text-white">Selected Projects</p>
+                    <div class="w-16 h-1 bg-brand-500 mx-auto rounded-full"></div>
+                </div>
+
+                <!-- Projects Grid (Strictly 3 Projects) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- PROJECT 1 -->
+                    <div class="bg-neutral-950 rounded-2xl border border-neutral-800 overflow-hidden flex flex-col justify-between transition duration-300 card-glow">
+                        <div class="p-6 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-md bg-cyan-950 text-cyan-400 border border-cyan-800/50 text-xs font-mono font-medium">Systems Analysis</span>
+                                <span class="text-xs text-slate-500 font-mono">Studython.vsdx</span>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-white">System Analysis (Studython)</h3>
+
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                A comprehensive system analysis project encompassing end-to-end architectural and process flow designs. Developed to structure operational logistics, user journeys, and data models for academic initiatives.
+                            </p>
+
+                            <div class="pt-2">
+                                <span class="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-2">Key Components:</span>
+                                <ul class="text-xs text-slate-400 space-y-1 list-disc list-inside">
+                                    <li>Process Architecture Diagramming</li>
+                                    <li>Visio (.vsdx) Flow Modeling</li>
+                                    <li>System Requirements Engineering</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="p-6 pt-0 mt-auto">
+                            <a href="https://tut4lifeac-my.sharepoint.com/:u:/r/personal/224732015_tut4life_ac_za/_layouts/15/Doc.aspx?sourcedoc=%7B783637D7-A4C3-483B-90B9-8D9560622E11%7D&file=Studython.vsdx&action=default&mobileredirect=true&DefaultItemOpen=1&ct=1784494631770&wdOrigin=OFFICECOM-WEB.START.EDGEWORTH&cid=07c900a8-d76e-41d2-b443-fd08cb9b7fcd&wdPreviousSessionSrc=HarmonyWeb&wdPreviousSession=bf9d4c9b-d7a4-4832-bdf8-784e7fdaf858" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-lg bg-neutral-900 border border-neutral-700 hover:border-brand-400 text-brand-400 font-semibold text-sm transition duration-300 group">
+                                <span>Access Studython Architecture</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- PROJECT 2 -->
+                    <div class="bg-neutral-950 rounded-2xl border border-neutral-800 overflow-hidden flex flex-col justify-between transition duration-300 card-glow">
+                        <div class="p-6 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-md bg-indigo-950 text-indigo-400 border border-indigo-800/50 text-xs font-mono font-medium">Database Administration</span>
+                                <span class="text-xs text-slate-500 font-mono">SQL Schema</span>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-white">Bookstore Relational Database</h3>
+
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                A database administration project featuring a robust schema to manage a bookstore system. Designed and managed relational tables using SQL, enforcing strict integrity constraints.
+                            </p>
+
+                            <div class="pt-2">
+                                <span class="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-2">Relational Entities:</span>
+                                <div class="flex flex-wrap gap-1.5 text-xs font-mono text-slate-300">
+                                    <span class="bg-neutral-900 px-2.5 py-1 rounded border border-neutral-800">Authors</span>
+                                    <span class="bg-neutral-900 px-2.5 py-1 rounded border border-neutral-800">Publishers</span>
+                                    <span class="bg-neutral-900 px-2.5 py-1 rounded border border-neutral-800">Books</span>
+                                    <span class="bg-neutral-900 px-2.5 py-1 rounded border border-neutral-800">Customers</span>
+                                    <span class="bg-neutral-900 px-2.5 py-1 rounded border border-neutral-800">Orders</span>
+                                    <span class="bg-neutral-900 px-2.5 py-1 rounded border border-neutral-800">Order Items</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 pt-0 mt-auto">
+                            <div class="px-4 py-2.5 rounded-lg bg-neutral-900/60 border border-neutral-800 text-slate-400 text-xs font-mono text-center">
+                                <i class="fa-solid fa-key text-brand-400 mr-1.5"></i> PK & FK Constraints Enabled
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PROJECT 3 -->
+                    <div class="bg-neutral-950 rounded-2xl border border-neutral-800 overflow-hidden flex flex-col justify-between transition duration-300 card-glow">
+                        <!-- Event Image Container -->
+                        <div class="h-48 w-full overflow-hidden relative border-b border-neutral-800">
+                            <img src="Arena.jpeg" alt="Female Only Esports Event Arena" class="w-full h-full object-cover hover:scale-105 transition duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80';">
+                            <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3 right-3 px-3 py-1 rounded-md bg-purple-950/90 text-purple-300 border border-purple-700/50 text-xs font-mono font-medium backdrop-blur-md">Project Management</span>
+                        </div>
+
+                        <div class="p-6 space-y-4">
+                            <h3 class="text-xl font-bold text-white">Female Only Esports Event (Arena)</h3>
+
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                A major project management and event coordination initiative for a women-empowering gaming tournament powered by Red Bull.
+                            </p>
+
+                            <div class="space-y-1.5 text-xs text-slate-300">
+                                <p class="flex items-center gap-2">
+                                    <i class="fa-solid fa-calendar-day text-brand-400"></i>
+                                    <span><strong>Date:</strong> March 27, 2026</span>
+                                </p>
+                                <p class="flex items-center gap-2">
+                                    <i class="fa-solid fa-location-dot text-brand-400"></i>
+                                    <span><strong>Venue:</strong> Soshanguve Campus Gymnasium</span>
+                                </p>
+                                <p class="flex items-center gap-2">
+                                    <i class="fa-solid fa-list-check text-brand-400"></i>
+                                    <span><strong>Scope:</strong> Simulators, DJ desks & Prize coordination</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-6 pt-0 mt-auto">
+                            <div class="px-4 py-2.5 rounded-lg bg-neutral-900/60 border border-neutral-800 text-brand-400 text-xs font-semibold text-center flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-bolt"></i> Powered by Red Bull
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= CONTACT SECTION ================= -->
+        <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <h2 class="text-xs font-mono uppercase tracking-widest text-brand-400">Get In Touch</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Let's Work Together</p>
+                <div class="w-16 h-1 bg-brand-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Direct Information & Social Links -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-bold text-white">Contact Information</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Interested in discussing system analysis, database administration, QA testing, or leadership roles? Feel free to reach out directly through any of the channels below.
+                        </p>
+                    </div>
+
+                    <!-- Direct Contact Details -->
+                    <div class="space-y-4">
+                        <a href="mailto:tiyanithebest@gmail.com" class="flex items-center gap-4 p-4 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-brand-500/50 transition duration-300 group">
+                            <div class="w-12 h-12 rounded-lg bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 text-xl group-hover:bg-brand-500 group-hover:text-neutral-950 transition duration-300">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 uppercase font-mono">Email</p>
+                                <p class="text-white font-medium text-sm sm:text-base">tiyanithebest@gmail.com</p>
+                            </div>
+                        </a>
+
+                        <a href="tel:0737063963" class="flex items-center gap-4 p-4 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-brand-500/50 transition duration-300 group">
+                            <div class="w-12 h-12 rounded-lg bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 text-xl group-hover:bg-brand-500 group-hover:text-neutral-950 transition duration-300">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 uppercase font-mono">Phone</p>
+                                <p class="text-white font-medium text-sm sm:text-base">073 706 3963</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Social Profiles Buttons -->
+                    <div class="space-y-3 pt-2">
+                        <p class="text-xs font-mono uppercase tracking-wider text-slate-400">Official Social Handles</p>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <!-- GitHub Button -->
+                            <a href="https://github.com/Ntsocialx" target="_blank" rel="noopener noreferrer" class="flex-1 px-5 py-3 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-slate-500 text-white font-medium text-sm flex items-center justify-center gap-3 transition duration-300 hover:bg-neutral-800">
+                                <i class="fa-brands fa-github text-xl"></i>
+                                <span>GitHub (Ntsocialx)</span>
+                            </a>
+
+                            <!-- LinkedIn Button -->
+                            <a href="https://www.linkedin.com/in/tiyani-nkuna-1839792a4?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" rel="noopener noreferrer" class="flex-1 px-5 py-3 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-blue-500 text-white font-medium text-sm flex items-center justify-center gap-3 transition duration-300 hover:bg-neutral-800">
+                                <i class="fa-brands fa-linkedin text-xl text-blue-400"></i>
+                                <span>LinkedIn</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Contact Form -->
+                <div class="lg:col-span-7 bg-neutral-900/60 p-6 sm:p-8 rounded-2xl border border-neutral-800">
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="name" class="block text-xs font-mono uppercase text-slate-300">Your Name</label>
+                                <input type="text" id="name" required placeholder="John Doe" class="w-full px-4 py-3 rounded-xl bg-neutral-950 border border-neutral-800 text-white placeholder-slate-600 focus:outline-none focus:border-brand-400 transition">
+                            </div>
+                            <div class="space-y-2">
+                                <label for="email" class="block text-xs font-mono uppercase text-slate-300">Your Email</label>
+                                <input type="email" id="email" required placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl bg-neutral-950 border border-neutral-800 text-white placeholder-slate-600 focus:outline-none focus:border-brand-400 transition">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="subject" class="block text-xs font-mono uppercase text-slate-300">Subject</label>
+                            <input type="text" id="subject" required placeholder="Inquiry regarding Business Analyst position" class="w-full px-4 py-3 rounded-xl bg-neutral-950 border border-neutral-800 text-white placeholder-slate-600 focus:outline-none focus:border-brand-400 transition">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="message" class="block text-xs font-mono uppercase text-slate-300">Message</label>
+                            <textarea id="message" rows="5" required placeholder="Write your message here..." class="w-full px-4 py-3 rounded-xl bg-neutral-950 border border-neutral-800 text-white placeholder-slate-600 focus:outline-none focus:border-brand-400 transition"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-neutral-950 font-bold transition-all duration-300 shadow-lg shadow-brand-500/20 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Send Message
+                        </button>
+
+                        <!-- Form Status Feedback -->
+                        <div id="form-status" class="hidden p-4 rounded-xl text-center text-sm font-medium"></div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-neutral-950 border-t border-neutral-800 py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-mono">
+            <p>&copy; 2026 Tiyani Nkuna. All Rights Reserved.</p>
+            <p>Designed with Tailwind CSS & JavaScript</p>
+        </div>
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        // 1. Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a navigation item is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 2. Client-side Form Handling Simulation
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Show success state
+            formStatus.classList.remove('hidden', 'bg-red-950/80', 'text-red-300', 'border-red-800');
+            formStatus.classList.add('bg-emerald-950/80', 'text-emerald-300', 'border', 'border-emerald-800');
+            formStatus.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Thank you! Your message has been received. Tiyani will respond shortly.';
+
+            // Reset form
+            contactForm.reset();
+
+            // Clear feedback message after 6 seconds
+            setTimeout(() => {
+                formStatus.classList.add('hidden');
+            }, 6000);
+        });
+
+        // 3. Header Scroll Glassmorphism Polish
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-xl', 'bg-neutral-950/95');
+            } else {
+                header.classList.remove('shadow-xl', 'bg-neutral-950/95');
+            }
+        });
+    </script>
+</body>
+</html>
