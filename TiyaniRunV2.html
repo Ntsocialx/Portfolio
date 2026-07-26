@@ -233,7 +233,10 @@
 </head>
 <body>
 
+   <audio id="bgmSoundtrack" src="soundtrack.mp3" loop preload="auto"></audio>
   <audio id="bgmSoundtrack" src="soundtrack.mp3" loop preload="auto"></audio>
+  bgm.currentTime = 0;
+bgm.play().catch(() => {});
 
   <div class="game-container" id="gameContainer">
     <a href="index.html.html" class="top-back-btn">⬅ Exit</a>
