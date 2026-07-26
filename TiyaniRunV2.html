@@ -352,7 +352,7 @@ muteBtn.addEventListener('click', (e) => {
     if (gameState === 'RUNNING') bgm.play().catch(() => {});
   }
 });
-<audio id="bgmSoundtrack" src="soundtrack.mp3" loop preload="auto" crossorigin="anonymous"></audio>
+<audio id="bgmSoundtrack" src="SoundTrack.mp3" loop preload="auto" crossorigin="anonymous"></audio>
 let gameState = 'START';
 let score = 0;
 let highScore = localStorage.getItem('pixel_runner_hi') || 0;
