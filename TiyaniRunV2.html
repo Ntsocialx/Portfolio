@@ -1,5 +1,3 @@
---- START OF FILE Paste July 26, 2026 - 8:51PM ---
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -233,10 +231,11 @@
 </head>
 <body>
 
+  <!-- Audio Element with explicit preloading -->
   <audio id="bgmSoundtrack" src="soundtrack.mp3" loop preload="auto"></audio>
 
   <div class="game-container" id="gameContainer">
-    <a href="index.html.html" class="top-back-btn">⬅ Exit</a>
+    <a href="index.html" class="top-back-btn">⬅ Exit</a>
     <button id="muteBtn" class="audio-btn">🔊 MUSIC: ON</button>
 
     <canvas id="gameCanvas" width="800" height="400"></canvas>
@@ -289,6 +288,7 @@ function selectRunner(charName) {
   document.getElementById('cardBlxckie').classList.toggle('active', charName === 'blxckie');
 }
 
+// --- Web Audio Synthesized SFX ---
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 let audioCtx;
 
@@ -341,6 +341,7 @@ function playSound(type) {
   }
 }
 
+// BGM Music Toggle
 muteBtn.addEventListener('click', (e) => {
   e.stopPropagation();
   isMuted = !isMuted;
@@ -349,10 +350,14 @@ muteBtn.addEventListener('click', (e) => {
     muteBtn.textContent = '🔇 MUSIC: OFF';
   } else {
     muteBtn.textContent = '🔊 MUSIC: ON';
-    if (gameState === 'RUNNING') bgm.play().catch(() => {});
+    if (gameState === 'RUNNING') {
+        const p = bgm.play();
+        if(p) p.catch(()=>{});
+    }
   }
 });
-<audio id="bgmSoundtrack" src="SoundTrack.mp3" loop preload="auto" crossorigin="anonymous"></audio>
+
+// --- Game Engine Variables ---
 let gameState = 'START';
 let score = 0;
 let highScore = localStorage.getItem('pixel_runner_hi') || 0;
@@ -406,6 +411,7 @@ function addPopup(text, x, y, color = '#facc15') {
   popups.push({ text, x, y, color, life: 30, vy: -1.5 });
 }
 
+// --- Player Object ---
 const player = {
   x: 80,
   y: groundY - 52,
@@ -572,7 +578,7 @@ function createDrone(x) {
   return {
     type: 'drone',
     x: x,
-    y: groundY - 95, // Positioned so it must be jumped or timed
+    y: groundY - 95, 
     width: 32,
     height: 22,
     animTick: 0,
@@ -594,11 +600,9 @@ function updateObstacles(step) {
   obstacleTimer += step;
   if (obstacleTimer > Math.max(50, 110 - speed * 4)) {
     if (Math.random() > 0.3) {
-      // Drones only appear after 2000 score
       if (score > 2000 && Math.random() > 0.6) {
         obstacles.push(createDrone(canvas.width + 20));
       } else {
-        // 30% chance for a Double Cactus
         const isDouble = Math.random() < 0.3;
         obstacles.push(createCactus(canvas.width + 20, isDouble));
       }
@@ -688,94 +692,4 @@ function drawBackground(step) {
   });
   midScroll = (midScroll + speed * 0.35 * step) % 180;
   for (let x = -midScroll; x < canvas.width + 180; x += 180) {
-    ctx.fillStyle = score > 1000 ? '#0f172a' : '#c08060'; ctx.fillRect(x, groundY - 60, 120, 60);
-    ctx.fillStyle = score > 1000 ? '#1e293b' : '#a06040'; ctx.fillRect(x + 4, groundY - 56, 112, 52);
-  }
-  ctx.fillStyle = '#e6cd98'; ctx.fillRect(0, groundY, canvas.width, canvas.height - groundY);
-  ctx.fillStyle = '#3a2b1c'; ctx.fillRect(0, groundY, canvas.width, 3);
-  pebbles.forEach(p => {
-    if (gameState === 'RUNNING') p.x -= speed * step;
-    if (p.x < 0) p.x = canvas.width;
-    ctx.fillStyle = p.color; ctx.fillRect(Math.floor(p.x), Math.floor(p.y), p.size, p.size);
-  });
-}
-
-function drawUI() {
-  ctx.fillStyle = '#2d2115'; ctx.font = '20px "Courier New", monospace';
-  const sStr = String(Math.floor(score)).padStart(5, '0');
-  const hsStr = String(Math.floor(highScore)).padStart(5, '0');
-  ctx.fillText(`HI ${hsStr} ${sStr}`, canvas.width - 210, 38);
-  if (gameState === 'GAMEOVER') {
-    ctx.fillStyle = 'rgba(0,0,0,0.7)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#ffffff'; ctx.textAlign = 'center'; ctx.font = '36px "Courier New", monospace';
-    ctx.fillText('G A M E    O V E R', canvas.width / 2, canvas.height / 2 - 20);
-    ctx.font = '18px "Courier New", monospace';
-    ctx.fillText('Tap Screen or Press SPACE to Restart', canvas.width / 2, canvas.height / 2 + 25);
-    ctx.textAlign = 'left';
-  }
-}
-
-function gameOver() {
-  gameState = 'GAMEOVER'; playSound('die'); bgm.pause();
-  addSparkles(player.x + 10, player.y + 20, '#dc2626');
-  if (score > highScore) { highScore = score; localStorage.setItem('pixel_runner_hi', highScore); }
-}
-
-function startGame() {
-  initAudio();
-  if (!isMuted) { bgm.currentTime = 0; bgm.play().catch(() => {}); }
-  score = 0; speed = 6.5; obstacles = []; collectibles = []; particles = []; popups = [];
-  obstacleTimer = 0; collectibleTimer = 0; player.hasShield = false;
-  gameState = 'RUNNING'; homeScreen.style.display = 'none';
-}
-
-function handleInput() {
-  if (gameState === 'START' || gameState === 'GAMEOVER') startGame();
-  else player.jump();
-}
-
-function loop(timestamp) {
-  if (!lastTime) lastTime = timestamp;
-  let dt = (timestamp - lastTime) / 1000;
-  if (dt > 0.1) dt = 0.1;
-  let step = dt * 60;
-  lastTime = timestamp;
-  frameCount++;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawBackground(step);
-  if (gameState === 'RUNNING') {
-    player.update(step); updateObstacles(step); updateCollectibles(step);
-    score += 0.15 * step; speed += 0.0008 * step;
-  }
-  collectibles.forEach(c => c.draw());
-  obstacles.forEach(o => o.draw());
-  player.draw();
-  for (let i = particles.length - 1; i >= 0; i--) {
-    let p = particles[i]; p.x += p.vx; p.y += p.vy; p.life--;
-    ctx.fillStyle = p.color; ctx.fillRect(Math.floor(p.x), Math.floor(p.y), p.size, p.size);
-    if (p.life <= 0) particles.splice(i, 1);
-  }
-  for (let i = popups.length - 1; i >= 0; i--) {
-    let txt = popups[i]; txt.y += txt.vy; txt.life--; ctx.fillStyle = txt.color;
-    ctx.font = 'bold 16px "Courier New", monospace'; ctx.fillText(txt.text, txt.x, txt.y);
-    if (txt.life <= 0) popups.splice(i, 1);
-  }
-  drawUI();
-  requestAnimationFrame(loop);
-}
-
-startBtn.addEventListener('click', (e) => { e.stopPropagation(); startGame(); });
-window.addEventListener('keydown', (e) => {
-  if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') {
-    e.preventDefault(); handleInput();
-  }
-});
-gameContainer.addEventListener('pointerdown', (e) => {
-  if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('.char-card')) return;
-  e.preventDefault(); handleInput();
-});
-
-requestAnimationFrame(loop);
-</script>
-</body>
-</html>
+    ctx.fillStyle = score > 1000 ? '#0f
