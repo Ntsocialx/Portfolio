@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>TiyaniRunV1</title>
   <style>
     * {
@@ -20,6 +20,7 @@
       font-family: 'Courier New', Courier, monospace;
       color: #fff;
       user-select: none;
+      padding: 10px;
     }
     .game-container {
       position: relative;
@@ -27,8 +28,10 @@
       border: 4px solid #2a2a2a;
       border-radius: 8px;
       overflow: hidden;
-      width: 800px;
-      height: 400px;
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 2 / 1;
+      touch-action: manipulation;
     }
     /* CRT Scanline Overlay Effect */
     .game-container::after {
@@ -44,8 +47,29 @@
     }
     canvas {
       display: block;
+      width: 100%;
+      height: 100%;
       background-color: #78b7ed; /* Active Gameplay Sky */
       image-rendering: pixelated;
+    }
+    /* Top Left Return Button for In-Game Exit */
+    .top-back-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 30;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 6px 12px;
+      border: 2px solid #555;
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
+    }
+    .top-back-btn:active {
+      background: rgba(255, 255, 255, 0.2);
     }
     /* Home / Start Screen with Background Image */
     .overlay-screen {
@@ -59,43 +83,69 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      /* Uses the uploaded retro image as the home screen background */
+      padding: 20px;
+      text-align: center;
       background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.55)), url('background.png') center/cover no-repeat;
     }
     .title {
-      font-size: 42px;
+      font-size: clamp(24px, 5vw, 42px);
       font-weight: bold;
       color: #facc15;
       text-shadow: 4px 4px 0px #000;
-      margin-bottom: 25px;
-      letter-spacing: 3px;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
     }
-    .start-btn {
-      background-color: #dc2626;
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+      max-width: 280px;
+    }
+    .btn {
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
       color: #ffffff;
       border: 4px solid #000;
-      padding: 14px 38px;
-      font-size: 22px;
+      padding: 12px 20px;
+      font-size: clamp(14px, 3vw, 20px);
       font-family: 'Courier New', Courier, monospace;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 6px 0 #000;
+      box-shadow: 0 4px 0 #000;
       transition: all 0.1s ease;
       letter-spacing: 1px;
+    }
+    .start-btn {
+      background-color: #dc2626;
     }
     .start-btn:hover {
       background-color: #ef4444;
       transform: translateY(-2px);
-      box-shadow: 0 8px 0 #000;
+      box-shadow: 0 6px 0 #000;
     }
     .start-btn:active {
-      transform: translateY(3px);
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #000;
+    }
+    .back-btn {
+      background-color: #3b82f6;
+    }
+    .back-btn:hover {
+      background-color: #60a5fa;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 #000;
+    }
+    .back-btn:active {
+      transform: translateY(2px);
       box-shadow: 0 2px 0 #000;
     }
     .instructions {
-      margin-top: 18px;
+      margin-top: 16px;
       color: #ffffff;
-      font-size: 14px;
+      font-size: clamp(11px, 2.2vw, 14px);
       font-weight: bold;
       text-shadow: 2px 2px 3px #000;
     }
@@ -103,14 +153,21 @@
 </head>
 <body>
 
-  <div class="game-container">
+  <div class="game-container" id="gameContainer">
+    <!-- Persistent Exit Link for Mobile/Desktop -->
+    <a href="/index.html.html" class="top-back-btn">⬅ Exit</a>
+
     <canvas id="gameCanvas" width="800" height="400"></canvas>
     
     <!-- Home / Start Menu -->
     <div id="homeScreen" class="overlay-screen">
-      <div class="title">PIXEL RUNNER</div>
-      <button id="startBtn" class="start-btn">▶ START GAME</button>
-      <div class="instructions">Press <b>SPACE</b> or <b>CLICK BUTTON</b> to Play</div>
+      <div class="title">NTSocial RUNNER</div>
+      <div class="button-group">
+        <button id="startBtn" class="btn start-btn">▶ START GAME</button>
+        <!-- Replace href with your actual home page link -->
+        <a href="index.html.html" class="btn back-btn">⬅ BACK TO WEBSITE</a>
+      </div>
+      <div class="instructions">TAP SCREEN or press <b>SPACE</b> to Play</div>
     </div>
   </div>
 
@@ -119,13 +176,19 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const homeScreen = document.getElementById('homeScreen');
 const startBtn = document.getElementById('startBtn');
+const gameContainer = document.getElementById('gameContainer');
 
 // --- Web Audio API Setup ---
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 let audioCtx;
 
-function playSound(type) {
+function initAudio() {
   if (!audioCtx) audioCtx = new AudioCtx();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+}
+
+function playSound(type) {
+  initAudio();
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
   osc.connect(gain);
@@ -400,7 +463,6 @@ function drawBackground() {
 function drawUI() {
   ctx.fillStyle = '#2d2115';
   ctx.font = '20px "Courier New", monospace';
-  ctx.fontWeight = 'bold';
 
   const sStr = String(Math.floor(score)).padStart(5, '0');
   const hsStr = String(Math.floor(highScore)).padStart(5, '0');
@@ -417,7 +479,7 @@ function drawUI() {
     ctx.fillText('G A M E   O V E R', canvas.width / 2, canvas.height / 2 - 15);
 
     ctx.font = '18px "Courier New", monospace';
-    ctx.fillText('Press SPACE to Restart', canvas.width / 2, canvas.height / 2 + 25);
+    ctx.fillText('Tap Screen or Press SPACE', canvas.width / 2, canvas.height / 2 + 25);
     ctx.textAlign = 'left';
   }
 }
@@ -432,12 +494,23 @@ function gameOver() {
 }
 
 function startGame() {
+  initAudio();
   score = 0;
   speed = 6;
   obstacles = [];
   obstacleTimer = 0;
   gameState = 'RUNNING';
   homeScreen.style.display = 'none';
+}
+
+function handleInput() {
+  if (gameState === 'START') {
+    startGame();
+  } else if (gameState === 'GAMEOVER') {
+    startGame();
+  } else {
+    player.jump();
+  }
 }
 
 // --- Main Game Loop ---
@@ -467,33 +540,25 @@ function loop() {
 }
 
 // --- Event Listeners ---
-startBtn.addEventListener('click', () => {
+startBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
   startGame();
 });
 
 window.addEventListener('keydown', (e) => {
   if (e.code === 'Space' || e.code === 'ArrowUp') {
     e.preventDefault();
-    if (gameState === 'START') {
-      startGame();
-    } else if (gameState === 'GAMEOVER') {
-      startGame();
-    } else {
-      player.jump();
-    }
+    handleInput();
   }
 });
 
-canvas.addEventListener('touchstart', (e) => {
+// Touch controls for mobile responsiveness
+gameContainer.addEventListener('touchstart', (e) => {
+  // Prevent jump trigger when clicking external buttons
+  if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
   e.preventDefault();
-  if (gameState === 'START') {
-    startGame();
-  } else if (gameState === 'GAMEOVER') {
-    startGame();
-  } else {
-    player.jump();
-  }
-});
+  handleInput();
+}, { passive: false });
 
 requestAnimationFrame(loop);
 </script>
