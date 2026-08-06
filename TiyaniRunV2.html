@@ -233,26 +233,7 @@
 </head>
 <body>
 
-  const enableAudioBtn = document.getElementById("enableAudioBtn");
-const audioPrompt = document.getElementById("audioPrompt");
-
-enableAudioBtn.addEventListener("click", async () => {
-    initAudio();
-
-    try {
-        await bgm.play();
-        bgm.pause();
-        bgm.currentTime = 0;
-    } catch (e) {
-        console.log(e);
-    }
-
-    audioPrompt.style.display = "none";
-});
-   <audio id="bgmSoundtrack" src="sound.mp3" loop preload="auto"></audio>
-  <audio id="bgmSoundtrack" src="sound.mp3" loop preload="auto"></audio>
-  bgm.currentTime = 0;
-bgm.play().catch(() => {});
+  <audio id="bgmSoundtrack" src="SoundTrack.mp3" loop preload="auto"></audio>
 
   <div class="game-container" id="gameContainer">
     <a href="index.html.html" class="top-back-btn">⬅ Exit</a>
