@@ -57,20 +57,17 @@
             background: #0891b2;
         }
 
-        /* Ambient Glow Effects */
-        .glow-bg {
-            background: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.15), transparent 70%);
-        }
-        
+        /* Subtle blue accents without glossy effects */
         .card-glow:hover {
-            box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+            box-shadow: 0 0 0 1px rgba(0, 122, 204, 0.18);
+            border-color: rgba(0, 122, 204, 0.3);
         }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col justify-between" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
 
     <!-- ================= HEADER & NAVIGATION ================= -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300">
+    <header class="fixed top-0 left-0 w-full z-50 bg-slate-950 border-b border-slate-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Brand / Logo -->
             <a href="#home" class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2 group">
@@ -83,13 +80,14 @@
                 <a href="#home" class="text-slate-300 hover:text-brand-400 transition-colors">Home</a>
                 <a href="#about" class="text-slate-300 hover:text-brand-400 transition-colors">About</a>
                 <a href="#skills" class="text-slate-300 hover:text-brand-400 transition-colors">Skills</a>
+                <a href="#certifications" class="text-slate-300 hover:text-brand-400 transition-colors">Certificates</a>
                 <a href="#projects" class="text-slate-300 hover:text-brand-400 transition-colors">Projects</a>
                 <a href="#contact" class="text-slate-300 hover:text-brand-400 transition-colors">Contact</a>
             </nav>
 
             <!-- Desktop CTA -->
             <div class="hidden md:block">
-                <a href="#contact" class="px-5 py-2.5 rounded-lg text-sm font-semibold bg-brand-500 hover:bg-brand-400 text-neutral-950 transition-all duration-300 shadow-lg shadow-brand-500/20 hover:shadow-brand-400/40">
+                <a href="#contact" class="px-5 py-2.5 rounded-lg text-sm font-semibold bg-brand-500 hover:bg-brand-400 text-neutral-950 transition-all duration-300 border border-brand-500/30">
                     Let's Connect
                 </a>
             </div>
@@ -105,6 +103,7 @@
             <a href="#home" class="mobile-link block text-slate-200 hover:text-brand-500 font-medium">Home</a>
             <a href="#about" class="mobile-link block text-slate-200 hover:text-brand-400 font-medium">About</a>
             <a href="#skills" class="mobile-link block text-slate-200 hover:text-brand-400 font-medium">Skills</a>
+            <a href="#certifications" class="mobile-link block text-slate-200 hover:text-brand-400 font-medium">Certificates</a>
             <a href="#projects" class="mobile-link block text-slate-200 hover:text-brand-400 font-medium">Projects</a>
             <a href="#contact" class="mobile-link block text-slate-200 hover:text-brand-400 font-medium">Contact</a>
             <a href="#contact" class="mobile-link block w-full text-center py-2.5 rounded-lg bg-brand-500 text-neutral-950 font-semibold">Let's Connect</a>
@@ -139,7 +138,7 @@
 
                     <!-- Hero Buttons -->
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
-                        <a href="#projects" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-neutral-950 font-bold transition-all duration-300 text-center shadow-lg shadow-brand-500/25">
+                        <a href="#projects" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-neutral-950 font-bold transition-all duration-300 text-center border border-brand-500/30">
                             <i class="fa-solid fa-briefcase mr-2"></i> View My Work
                         </a>
                         <a href="#contact" class="w-full sm:w-auto px-7 py-3.5 rounded-xl border border-slate-300 bg-slate-800 hover:bg-slate-700 text-white font-semibold transition-all duration-300 text-center hover:border-brand-500">
@@ -152,7 +151,7 @@
                 <div class="lg:col-span-5 flex justify-center order-1 lg:order-2">
                     <div class="relative group text-center">
                         <!-- Circular Profile Image -->
-                        <div class="relative rounded-full overflow-hidden bg-slate-950 w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 shadow-2xl">
+                        <div class="relative rounded-full overflow-hidden bg-slate-950 w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 border border-slate-800">
                             <img src="Picture.jpeg" alt="Tiyani Nkuna" class="w-full h-full object-cover object-center transition duration-500 group-hover:scale-105 rounded-full" onerror ="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';">
                         </div>
                     </div>
@@ -236,7 +235,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 
                 <!-- Technical Skills & Visual Progress Bars -->
-                <div class="space-y-6 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-lg">
+                <div class="space-y-6 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
                     <h3 class="text-xl font-bold text-slate-950 flex items-center gap-3">
                         <i class="fa-solid fa-code text-brand-500"></i> Technical Expertise
                     </h3>
@@ -365,7 +364,103 @@
         </section>
 
 
-                <!-- ================= REFACTORED PROJECTS SECTION ================= -->
+        <!-- ================= CERTIFICATIONS SECTION ================= -->
+        <section id="certifications" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16 bg-slate-100 text-slate-900">
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <h2 class="text-xs font-mono uppercase tracking-widest text-brand-500">Recognition & Achievements</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-950">Certificates</p>
+                <div class="w-16 h-1 bg-brand-500 mx-auto rounded-full"></div>
+                <p class="text-slate-600 text-base sm:text-lg">Scroll through the previews below, then click any card to open the full certificate.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div role="button" tabindex="0" onclick="openCertificateModal('Certificates/CCE%20Volunteer%20.pdf', 'CCE Volunteer Certificate')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('Certificates/CCE%20Volunteer%20.pdf', 'CCE Volunteer Certificate'); }" class="group text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
+                    <div class="h-56 bg-slate-950/95 p-2">
+                        <iframe src="Certificates/CCE%20Volunteer%20.pdf#page=1&view=FitH" title="CCE Volunteer Certificate preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <p class="text-xs font-mono uppercase tracking-wider text-brand-500">Community Service</p>
+                        <h3 class="text-xl font-bold text-slate-950">CCE Volunteer Certificate</h3>
+                        <p class="text-sm text-slate-600">Recognition for volunteer contribution and community engagement initiatives.</p>
+                        <span class="inline-flex items-center gap-2 text-sm font-semibold text-brand-500 group-hover:gap-3 transition-all">
+                            Open full view <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div role="button" tabindex="0" onclick="openCertificateModal('Certificates/Deputy%20Secretary%20ICT.pdf', 'Deputy Secretary ICT Certificate')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('Certificates/Deputy%20Secretary%20ICT.pdf', 'Deputy Secretary ICT Certificate'); }" class="group text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
+                    <div class="h-56 bg-slate-950/95 p-2">
+                        <iframe src="Certificates/Deputy%20Secretary%20ICT.pdf#page=1&view=FitH" title="Deputy Secretary ICT Certificate preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <p class="text-xs font-mono uppercase tracking-wider text-brand-500">Leadership</p>
+                        <h3 class="text-xl font-bold text-slate-950">Deputy Secretary ICT</h3>
+                        <p class="text-sm text-slate-600">Certificate reflecting administrative leadership and ICT-related responsibilities.</p>
+                        <span class="inline-flex items-center gap-2 text-sm font-semibold text-brand-500 group-hover:gap-3 transition-all">
+                            Open full view <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div role="button" tabindex="0" onclick="openCertificateModal('Certificates/GKSS%202024.pdf', 'GKSS 2024 Certificate')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('Certificates/GKSS%202024.pdf', 'GKSS 2024 Certificate'); }" class="group text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
+                    <div class="h-56 bg-slate-950/95 p-2">
+                        <iframe src="Certificates/GKSS%202024.pdf#page=1&view=FitH" title="GKSS 2024 Certificate preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <p class="text-xs font-mono uppercase tracking-wider text-brand-500">Financial Stewardship</p>
+                        <h3 class="text-xl font-bold text-slate-950">GKSS 2024</h3>
+                        <p class="text-sm text-slate-600">Acknowledgement tied to governance, finance, and organisational support.</p>
+                        <span class="inline-flex items-center gap-2 text-sm font-semibold text-brand-500 group-hover:gap-3 transition-all">
+                            Open full view <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div role="button" tabindex="0" onclick="openCertificateModal('Certificates/Hp1.pdf', 'HP Certificate 1')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('Certificates/Hp1.pdf', 'HP Certificate 1'); }" class="group text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
+                    <div class="h-56 bg-slate-950/95 p-2">
+                        <iframe src="Certificates/Hp1.pdf#page=1&view=FitH" title="HP Certificate 1 preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <p class="text-xs font-mono uppercase tracking-wider text-brand-500">Achievement</p>
+                        <h3 class="text-xl font-bold text-slate-950">HP Certificate 1</h3>
+                        <p class="text-sm text-slate-600">Professional recognition from the first achievement record in the certification folder.</p>
+                        <span class="inline-flex items-center gap-2 text-sm font-semibold text-brand-500 group-hover:gap-3 transition-all">
+                            Open full view <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div role="button" tabindex="0" onclick="openCertificateModal('Certificates/Hp2.pdf', 'HP Certificate 2')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('Certificates/Hp2.pdf', 'HP Certificate 2'); }" class="group text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
+                    <div class="h-56 bg-slate-950/95 p-2">
+                        <iframe src="Certificates/Hp2.pdf#page=1&view=FitH" title="HP Certificate 2 preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <p class="text-xs font-mono uppercase tracking-wider text-brand-500">Achievement</p>
+                        <h3 class="text-xl font-bold text-slate-950">HP Certificate 2</h3>
+                        <p class="text-sm text-slate-600">A second credential highlighting progress and continued professional development.</p>
+                        <span class="inline-flex items-center gap-2 text-sm font-semibold text-brand-500 group-hover:gap-3 transition-all">
+                            Open full view <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div role="button" tabindex="0" onclick="openCertificateModal('Certificates/Hp3.pdf', 'HP Certificate 3')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('Certificates/Hp3.pdf', 'HP Certificate 3'); }" class="group text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
+                    <div class="h-56 bg-slate-950/95 p-2">
+                        <iframe src="Certificates/Hp3.pdf#page=1&view=FitH" title="HP Certificate 3 preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <p class="text-xs font-mono uppercase tracking-wider text-brand-500">Achievement</p>
+                        <h3 class="text-xl font-bold text-slate-950">HP Certificate 3</h3>
+                        <p class="text-sm text-slate-600">A third certificate that rounds out the set of recognitions and accomplishments.</p>
+                        <span class="inline-flex items-center gap-2 text-sm font-semibold text-brand-500 group-hover:gap-3 transition-all">
+                            Open full view <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= REFACTORED PROJECTS SECTION ================= -->
         <section id="projects" class="py-24 bg-slate-100 border-y border-slate-200/80 px-4 sm:px-6 lg:px-8">
             <div class="max-w-7xl mx-auto space-y-12">
                 
@@ -378,7 +473,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
                     
                     <!-- PROJECT 1: Systems Analysis -->
-                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-lg">
+                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
                         <div class="overflow-hidden bg-slate-100 h-52">
                             <img src="Dataflow.jpeg" alt="Student & Accommodation DFD" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
                         </div>
@@ -394,7 +489,7 @@
                     </div>
 
                     <!-- PROJECT 2: MySQL Code Viewer -->
-                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow lg:col-span-1 shadow-lg">
+                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow lg:col-span-1 shadow-sm">
                         <div class="flex items-center justify-between px-6 py-3 border-b border-slate-200 bg-slate-100">
                             <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest">mysql_schema.sql</span>
                             <button id="copyBtn" onclick="copySQL()" class="text-xs font-bold text-brand-500 hover:text-brand-400 transition-colors flex items-center gap-2">
@@ -435,7 +530,7 @@
                     </div>
 
                     <!-- PROJECT 3: Esports Event -->
-                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-lg">
+                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
                         <div class="overflow-hidden bg-slate-100 h-52">
                             <img src="Arena.jpeg" alt="Esports Event Arena" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
                         </div>
@@ -454,7 +549,7 @@
                         </div>
                     </div>
                     <!-- PROJECT 4: Mini Game -->
-                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-lg">
+                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
                         <div class="overflow-hidden bg-slate-100 h-52">
                             <img src="background.png" alt="Student & Accommodation DFD" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
                         </div>
@@ -470,7 +565,7 @@
                         </div>
                     </div>
                     <!-- PROJECT 5: Mini Game x Blxckie-->
-                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-lg">
+                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
                         <div class="overflow-hidden bg-slate-100 h-52">
                             <img src="background2.png" alt="Student & Accommodation DFD" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
                         </div>
@@ -486,6 +581,27 @@
                         </div>
                     </div>
 
+                    <!-- PROJECT 6: FYC Gaming Event -->
+                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
+                        <div class="overflow-hidden bg-slate-100 h-52">
+                            <img src="FYC Gaming Event .jpeg" alt="FYC Gaming Event" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-md bg-brand-500/10 text-brand-500 border border-brand-500/20 text-xs font-mono font-medium">Event Management</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-950">FYC Gaming Event</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                A gaming-focused community event that brought together players, competition, and engaging digital entertainment.
+                            </p>
+                            <div class="text-[11px] font-mono text-slate-500 grid grid-cols-2 gap-2">
+                                <div><i class="fa-solid fa-gamepad mr-1"></i> Gaming</div>
+                                <div><i class="fa-solid fa-users mr-1"></i> Community</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
                 </div>
             </div>
         </section>
@@ -494,15 +610,30 @@
     </main>
 
     <!-- ================= LIGHTBOX MODAL ================= -->
-    <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-sm p-4 transition-all duration-300" onclick="closeLightbox()">
-        <!-- Close Button -->
+    <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 p-4 transition-all duration-300" onclick="closeLightbox()">
         <button class="absolute top-6 right-6 text-white text-4xl hover:text-brand-400 transition-colors z-[110]" onclick="closeLightbox()">
             <i class="fa-solid fa-xmark"></i>
         </button>
         
-        <!-- Image Container -->
         <div class="max-w-5xl w-full flex items-center justify-center h-full">
-            <img id="lightbox-img" src="" alt="Enlarged project view" class="max-h-full max-w-full rounded shadow-2xl scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" alt="Enlarged project view" class="max-h-full max-w-full rounded shadow-sm scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+        </div>
+    </div>
+
+    <!-- ================= CERTIFICATE MODAL ================= -->
+    <div id="certificate-modal" class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/95 p-3 sm:p-4 transition-all duration-300" onclick="closeCertificateModal()">
+        <button class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white text-3xl sm:text-4xl hover:text-brand-400 transition-colors z-[130]" onclick="closeCertificateModal()" aria-label="Close certificate preview">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="w-full max-w-6xl h-[88vh] rounded-2xl overflow-hidden border border-slate-700 bg-slate-950 shadow-sm" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-950/95">
+                <p id="certificate-title" class="text-sm font-semibold text-white"></p>
+                <a id="certificate-download" href="#" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-brand-400 hover:text-brand-300">
+                    Download PDF
+                </a>
+            </div>
+            <iframe id="certificate-frame" src="" title="Certificate preview" class="w-full h-full bg-white"></iframe>
         </div>
     </div>
 
@@ -511,6 +642,10 @@
         // Lightbox Logic
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
+        const certificateModal = document.getElementById('certificate-modal');
+        const certificateFrame = document.getElementById('certificate-frame');
+        const certificateTitle = document.getElementById('certificate-title');
+        const certificateDownload = document.getElementById('certificate-download');
 
         function openLightbox(src) {
             lightboxImg.src = src;
@@ -520,7 +655,7 @@
                 lightboxImg.classList.remove('scale-95');
                 lightboxImg.classList.add('scale-100');
             }, 10);
-            document.body.style.overflow = 'hidden'; // Prevent scroll
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
@@ -529,16 +664,33 @@
             setTimeout(() => {
                 lightbox.classList.add('hidden');
                 lightbox.classList.remove('flex');
-                document.body.style.overflow = ''; // Restore scroll
+                document.body.style.overflow = '';
             }, 200);
         }
 
-        // Close on Escape key
+        function openCertificateModal(src, title) {
+            certificateFrame.src = src;
+            certificateTitle.textContent = title;
+            certificateDownload.href = src;
+            certificateModal.classList.remove('hidden');
+            certificateModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCertificateModal() {
+            certificateModal.classList.add('hidden');
+            certificateModal.classList.remove('flex');
+            certificateFrame.src = '';
+            document.body.style.overflow = '';
+        }
+
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'Escape') {
+                closeLightbox();
+                closeCertificateModal();
+            }
         });
 
-        // Copy SQL Script Logic
         function copySQL() {
             const code = document.getElementById('sqlSnippet').innerText;
             const btn = document.getElementById('copyBtn');
@@ -618,7 +770,7 @@
                 </div>
 
                 <!-- Interactive Contact Form -->
-                <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-lg">
+                <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
                     <form id="contact-form" class="space-y-6">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div class="space-y-2">
@@ -641,7 +793,7 @@
                             <textarea id="message" rows="5" required placeholder="Write your message here..." class="w-full px-4 py-3 rounded-xl bg-slate-100 border border-slate-200 text-slate-900 placeholder-slate-500 focus:outline-none focus:border-brand-500 transition"></textarea>
                         </div>
 
-                        <button type="submit" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-neutral-950 font-bold transition-all duration-300 shadow-lg shadow-brand-500/20 flex items-center justify-center gap-2">
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-neutral-950 font-bold transition-all duration-300 border border-brand-500/30 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-paper-plane"></i> Send Message
                         </button>
 
