@@ -152,7 +152,7 @@
                     <div class="relative group text-center">
                         <!-- Circular Profile Image -->
                         <div class="relative rounded-full overflow-hidden bg-slate-950 w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 border border-slate-800">
-                            <img src="Picture.jpeg" alt="Tiyani Nkuna" class="w-full h-full object-cover object-center transition duration-500 group-hover:scale-105 rounded-full" onerror ="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';">
+                            <img src="assets/images/portrait.jpeg" alt="Tiyani Nkuna" class="w-full h-full object-cover object-center transition duration-500 group-hover:scale-105 rounded-full" onerror ="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';">
                         </div>
                     </div>
                 </div>
@@ -376,9 +376,9 @@
                 </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 place-items-center sm:place-items-stretch">
-                <div role="button" tabindex="0" onclick="openCertificateModal('Certificates/CCE%20Volunteer%20.pdf', 'CCE Volunteer Certificate')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('Certificates/CCE%20Volunteer%20.pdf', 'CCE Volunteer Certificate'); }" class="group w-full max-w-sm text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
+                <div role="button" tabindex="0" onclick="openCertificateModal('certificates/cce_volunteer.pdf', 'CCE Volunteer Certificate')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('certificates/cce_volunteer.pdf', 'CCE Volunteer Certificate'); }" class="group w-full max-w-sm text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
                     <div class="h-56 bg-slate-950/95 p-2">
-                        <iframe src="Certificates/CCE%20Volunteer%20.pdf#page=1&view=FitH" title="CCE Volunteer Certificate preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
+                        <iframe src="certificates/cce_volunteer.pdf#page=1&view=FitH" title="CCE Volunteer Certificate preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
                     </div>
                     <div class="p-6 space-y-3">
                         <p class="text-xs font-mono uppercase tracking-wider text-brand-500">Community Service</p>
@@ -390,9 +390,9 @@
                     </div>
                 </div>
 
-                <div role="button" tabindex="0" onclick="openCertificateModal('Certificates/Deputy%20Secretary%20ICT.pdf', 'Deputy Secretary ICT Certificate')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('Certificates/Deputy%20Secretary%20ICT.pdf', 'Deputy Secretary ICT Certificate'); }" class="group w-full max-w-sm text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
+                <div role="button" tabindex="0" onclick="openCertificateModal('certificates/deputy_secretary_ict.pdf', 'Deputy Secretary ICT Certificate')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('certificates/deputy_secretary_ict.pdf', 'Deputy Secretary ICT Certificate'); }" class="group w-full max-w-sm text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
                     <div class="h-56 bg-slate-950/95 p-2">
-                        <iframe src="Certificates/Deputy%20Secretary%20ICT.pdf#page=1&view=FitH" title="Deputy Secretary ICT Certificate preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
+                        <iframe src="certificates/deputy_secretary_ict.pdf#page=1&view=FitH" title="Deputy Secretary ICT Certificate preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
                     </div>
                     <div class="p-6 space-y-3">
                         <p class="text-xs font-mono uppercase tracking-wider text-brand-500">Leadership</p>
@@ -404,9 +404,9 @@
                     </div>
                 </div>
 
-                <div role="button" tabindex="0" onclick="openCertificateModal('Certificates/GKSS%202024.pdf', 'GKSS 2024 Certificate')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('Certificates/GKSS%202024.pdf', 'GKSS 2024 Certificate'); }" class="group w-full max-w-sm text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
+                <div role="button" tabindex="0" onclick="openCertificateModal('certificates/gkss_2024.pdf', 'GKSS 2024 Certificate')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('certificates/gkss_2024.pdf', 'GKSS 2024 Certificate'); }" class="group w-full max-w-sm text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
                     <div class="h-56 bg-slate-950/95 p-2">
-                        <iframe src="Certificates/GKSS%202024.pdf#page=1&view=FitH" title="GKSS 2024 Certificate preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
+                        <iframe src="certificates/gkss_2024.pdf#page=1&view=FitH" title="GKSS 2024 Certificate preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
                     </div>
                     <div class="p-6 space-y-3">
                         <p class="text-xs font-mono uppercase tracking-wider text-brand-500">Financial Stewardship</p>
@@ -418,9 +418,9 @@
                     </div>
                 </div>
 
-                <div role="button" tabindex="0" onclick="openCertificateModal('Certificates/Hp1.pdf', 'HP Certificate 1')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('Certificates/Hp1.pdf', 'HP Certificate 1'); }" class="group w-full max-w-sm text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
+                <div role="button" tabindex="0" onclick="openCertificateModal('certificates/hp_life_finding_funding.pdf', 'HP Certificate 1')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('certificates/hp_life_finding_funding.pdf', 'HP Certificate 1'); }" class="group w-full max-w-sm text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
                     <div class="h-56 bg-slate-950/95 p-2">
-                        <iframe src="Certificates/Hp1.pdf#page=1&view=FitH" title="HP Certificate 1 preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
+                        <iframe src="certificates/hp_life_finding_funding.pdf#page=1&view=FitH" title="HP Certificate 1 preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
                     </div>
                     <div class="p-6 space-y-3">
                         <p class="text-xs font-mono uppercase tracking-wider text-brand-500">Achievement</p>
@@ -432,9 +432,9 @@
                     </div>
                 </div>
 
-                <div role="button" tabindex="0" onclick="openCertificateModal('Certificates/Hp2.pdf', 'HP Certificate 2')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('Certificates/Hp2.pdf', 'HP Certificate 2'); }" class="group w-full max-w-sm text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
+                <div role="button" tabindex="0" onclick="openCertificateModal('certificates/hp_life_presenting_data.pdf', 'HP Certificate 2')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('certificates/hp_life_presenting_data.pdf', 'HP Certificate 2'); }" class="group w-full max-w-sm text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
                     <div class="h-56 bg-slate-950/95 p-2">
-                        <iframe src="Certificates/Hp2.pdf#page=1&view=FitH" title="HP Certificate 2 preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
+                        <iframe src="certificates/hp_life_presenting_data.pdf#page=1&view=FitH" title="HP Certificate 2 preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
                     </div>
                     <div class="p-6 space-y-3">
                         <p class="text-xs font-mono uppercase tracking-wider text-brand-500">Achievement</p>
@@ -446,9 +446,9 @@
                     </div>
                 </div>
 
-                <div role="button" tabindex="0" onclick="openCertificateModal('Certificates/Hp3.pdf', 'HP Certificate 3')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('Certificates/Hp3.pdf', 'HP Certificate 3'); }" class="group w-full max-w-sm text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
+                <div role="button" tabindex="0" onclick="openCertificateModal('certificates/hp_life_social_media_marketing.pdf', 'HP Certificate 3')" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openCertificateModal('certificates/hp_life_social_media_marketing.pdf', 'HP Certificate 3'); }" class="group w-full max-w-sm text-left bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-500/40 cursor-pointer">
                     <div class="h-56 bg-slate-950/95 p-2">
-                        <iframe src="Certificates/Hp3.pdf#page=1&view=FitH" title="HP Certificate 3 preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
+                        <iframe src="certificates/hp_life_social_media_marketing.pdf#page=1&view=FitH" title="HP Certificate 3 preview" class="w-full h-full rounded-xl border border-slate-700 bg-white"></iframe>
                     </div>
                     <div class="p-6 space-y-3">
                         <p class="text-xs font-mono uppercase tracking-wider text-brand-500">Achievement</p>
@@ -477,7 +477,7 @@
                     <!-- PROJECT 1: Systems Analysis -->
                     <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
                         <div class="overflow-hidden bg-slate-100 h-52">
-                            <img src="Dataflow.jpeg" alt="Student & Accommodation DFD" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
+                            <img src="assets/images/dataflow.jpeg" alt="Student & Accommodation DFD" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
                         </div>
                         <div class="p-6 space-y-4">
                             <div class="flex items-center justify-between">
@@ -534,7 +534,7 @@
                     <!-- PROJECT 3: Esports Event -->
                     <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
                         <div class="overflow-hidden bg-slate-100 h-52">
-                            <img src="Arena.jpeg" alt="Esports Event Arena" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
+                            <img src="assets/images/arena.jpeg" alt="Esports Event Arena" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
                         </div>
                         <div class="p-6 space-y-4">
                             <div class="flex items-center justify-between">
@@ -553,14 +553,14 @@
                     <!-- PROJECT 4: Mini Game -->
                     <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
                         <div class="overflow-hidden bg-slate-100 h-52">
-                            <img src="background.png" alt="Student & Accommodation DFD" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
+                            <img src="games/assets/tiyani_run_v1_background.png" alt="Student & Accommodation DFD" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
                         </div>
                         <div class="p-6 space-y-4">
                             <div class="flex items-center justify-between">
                                 <span class="px-3 py-1 rounded-md bg-brand-500/10 text-brand-500 border border-brand-500/20 text-xs font-mono font-medium">Mini Game</span>
                             </div>
                             <h3 class="text-xl font-bold text-slate-950">Creative Projects</h3>
-                            <a href="TiyaniRunV1.html"><p class="text-slate-400 text-sm leading-relaxed">
+                            <a href="games/tiyani_run_v1.html"><p class="text-slate-400 text-sm leading-relaxed">
                                 A Mini Game to pass time
                             </p></a>
                             
@@ -569,14 +569,14 @@
                     <!-- PROJECT 5: Mini Game x Blxckie-->
                     <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
                         <div class="overflow-hidden bg-slate-100 h-52">
-                            <img src="background2.png" alt="Student & Accommodation DFD" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
+                            <img src="games/assets/tiyani_run_v2_background.png" alt="Student & Accommodation DFD" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
                         </div>
                         <div class="p-6 space-y-4">
                             <div class="flex items-center justify-between">
                                 <span class="px-3 py-1 rounded-md bg-brand-500/10 text-brand-500 border border-brand-500/20 text-xs font-mono font-medium">Mini Game version 2</span>
                             </div>
                             <h3 class="text-xl font-bold text-slate-950">Creative Projects</h3>
-                            <a href="TiyaniRunV2.html"><p class="text-slate-400 text-sm leading-relaxed">
+                            <a href="games/tiyani_run_v2.html"><p class="text-slate-400 text-sm leading-relaxed">
                                 A Mini Game to pass time
                             </p></a>
                             
@@ -586,7 +586,7 @@
                     <!-- PROJECT 6: FYC Gaming Event -->
                     <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
                         <div class="overflow-hidden bg-slate-100 h-52">
-                            <img src="FYC Gaming Event .jpeg" alt="FYC Gaming Event" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
+                            <img src="assets/images/fyc_gaming_event.jpeg" alt="FYC Gaming Event" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
                         </div>
                         <div class="p-6 space-y-4">
                             <div class="flex items-center justify-between">
@@ -605,14 +605,14 @@
                     <!-- PROJECT 7: Snake Game-->
                     <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
                         <div class="overflow-hidden bg-slate-100 h-52">
-                            <img src="Snake Game.png" width="300px" height="300px" alt="Snake Game" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
+                            <img src="assets/images/snake_game.png" width="300px" height="300px" alt="Snake Game" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
                         </div>
                         <div class="p-6 space-y-4">
                             <div class="flex items-center justify-between">
                                 <span class="px-3 py-1 rounded-md bg-brand-500/10 text-brand-500 border border-brand-500/20 text-xs font-mono font-medium">Mini Game</span>
                             </div>
                             <h3 class="text-xl font-bold text-slate-950">Snake Game</h3>
-                            <a href="/Game/Snake Game/index.html "><p class="text-slate-400 text-sm leading-relaxed">
+                            <a href="games/snake/index.html"><p class="text-slate-400 text-sm leading-relaxed">
                                 Click Here to play the Snake Game
                             </p></a>
                             
@@ -621,7 +621,7 @@
                     <!-- PROJECT 8: FYC-->
                     <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
                         <div class="overflow-hidden bg-slate-100 h-52">
-                            <img src="Logo.jpeg" width="300px" height="300px" alt="Snake Game" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
+                            <img src="assets/images/fyc_logo.jpeg" width="300px" height="300px" alt="Snake Game" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
                         </div>
                         <div class="p-6 space-y-4">
                             <div class="flex items-center justify-between">
@@ -654,7 +654,7 @@
                     <!-- PROJECT 10: Auth-->
                     <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
                         <div class="overflow-hidden bg-slate-100 h-52">
-                            <img src="Auth.png" width="300px" height="300px" alt="Snake Game" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
+                            <img src="assets/images/auth.png" width="300px" height="300px" alt="Snake Game" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
                         </div>
                         <div class="p-6 space-y-4">
                             <div class="flex items-center justify-between">
@@ -671,7 +671,7 @@
                       <!-- PROJECT 11: Booking-->
                     <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden flex flex-col transition duration-300 card-glow shadow-sm">
                         <div class="overflow-hidden bg-slate-100 h-52">
-                            <img src="Booking.png" width="300px" height="300px" alt="Snake Game" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
+                            <img src="assets/images/booking.png" width="300px" height="300px" alt="Snake Game" class="w-full h-full object-cover lightbox-trigger" onclick="openLightbox(this.src)">
                         </div>
                         <div class="p-6 space-y-4">
                             <div class="flex items-center justify-between">

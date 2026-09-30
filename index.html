@@ -17,7 +17,7 @@
     #index      02 index of work, rendered from PROJECTS in the script
     #cases      03 case files, pinned horizontal scroll on wide screens
     #market     04 skills as a stock board with sparklines + classified ads
-    #cuttings   05 certificates as taped cuttings, open in the clipping viewer
+    #credentials 05 certificates as taped cuttings, open in the credential viewer
     #contact    06 classifieds contact block
     footer      giant outlined wordmark
 
@@ -25,7 +25,7 @@
     - Projects: edit the PROJECTS array in the script (BLOCK: project_data).
       Each entry: name, tag, year, img (path or null), desc, facts, links.
     - Certificates: edit CERTIFICATES (BLOCK: certificate_data). Images live
-      in Certificates/previews/<slug>.jpg and <slug>_thumb.jpg.
+      in certificates/previews/<slug>.jpg and <slug>_thumb.jpg.
     - Case files, skills, contact: plain HTML, edit in place.
     - Skill index values: data-value on each .spark and data-count on .qval.
     - Asset paths are relative to this folder (./ is the repo root).
@@ -38,8 +38,6 @@
     --accent     #2436d6  ultramarine, echoes the TUT tie in the portrait
     --on_accent  #f7f3ea  text on accent
 
-  TODO
-    - Confirm the data science "Watchlist" tools (Python, pandas, etc).
   ==========================================================================
 -->
 <html lang="en">
@@ -47,6 +45,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tiyani Nkuna, The Broadsheet</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232436d6'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Impact,sans-serif' font-size='16' fill='%23f2ede1'%3ETN%3C/text%3E%3C/svg%3E"
+    />
     <meta
       name="description"
       content="Tiyani Nkuna, final-year Informatics student at TUT. SQL, systems analysis and full-stack web. Open to junior developer and data roles."
@@ -305,27 +307,16 @@
         padding: 0 var(--gutter);
       }
       .dateline {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
+        display: flex;
+        justify-content: space-between;
         align-items: center;
         gap: 1rem;
         padding: 12px 0;
         border-bottom: 1px solid var(--rule);
         color: var(--ink_dim);
       }
-      .dateline > :nth-child(2) {
-        text-align: center;
-      }
       .dateline > :last-child {
         text-align: right;
-      }
-      @media (max-width: 640px) {
-        .dateline {
-          grid-template-columns: 1fr 1fr;
-        }
-        .dateline > :nth-child(2) {
-          display: none;
-        }
       }
       .blink {
         display: inline-block;
@@ -531,11 +522,14 @@
         height: 100%;
         animation: spin_round 16s linear infinite;
       }
+      /* The text must fit the circle's path exactly (2 * pi * 38 = 238.8 in
+         viewBox units) or the end gets cut off. 43 characters at 8px with
+         0.09em spacing lands just under; textLength closes the gap. */
       .sticker text {
         font-family: var(--mono);
-        font-size: 9.6px;
+        font-size: 8px;
         font-weight: 600;
-        letter-spacing: 0.16em;
+        letter-spacing: 0.09em;
         fill: currentColor;
         text-transform: uppercase;
       }
@@ -1187,8 +1181,18 @@
         background: var(--ink);
         color: var(--paper);
       }
+      .sql_actions {
+        display: flex;
+        gap: 14px;
+      }
+      .sql_view[data-expand_code] {
+        cursor: zoom-in;
+      }
+      /* The card is a teaser: clipped, no scrollbars. The full script opens
+         in the viewer (BLOCK: expand_code). */
       .sql_view {
-        overflow: auto;
+        position: relative;
+        overflow: hidden;
         background: var(--code_bg);
         color: #d8dbe6;
         min-height: 0;
@@ -1198,6 +1202,23 @@
         font-family: var(--mono);
         font-size: 12px;
         line-height: 1.65;
+        -webkit-mask-image: linear-gradient(to right, #000 82%, transparent);
+        mask-image: linear-gradient(to right, #000 82%, transparent);
+      }
+      .sql_view::after {
+        content: "Click to read the full script \2197";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 48px 14px 12px;
+        background: linear-gradient(to bottom, transparent, var(--code_bg) 65%);
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent_light);
+        pointer-events: none;
       }
       .sql_kw {
         color: #8aa2ff;
@@ -1429,6 +1450,10 @@
       .ad_inverse .tag {
         border-color: rgba(247, 243, 234, 0.45);
       }
+      /* Planned, not yet studied: dashed so it never reads as a current skill */
+      .tag_next {
+        border-style: dashed;
+      }
       .tags {
         display: flex;
         flex-wrap: wrap;
@@ -1449,7 +1474,7 @@
       }
 
       /* ================================================================
-         05 CUTTINGS (certificates)
+         05 CREDENTIALS (certificates)
          ================================================================ */
       .cuttings {
         display: grid;
@@ -1695,6 +1720,88 @@
       .viewer_stage.is_dragging img {
         transition: none;
       }
+
+      /* Code and live-app modes: no zoom, normal cursor, selectable text */
+      .viewer_stage[data-mode="code"],
+      .viewer_stage[data-mode="frame"] {
+        cursor: auto;
+        touch-action: auto;
+        user-select: text;
+      }
+      .viewer_stage[data-mode="code"] {
+        background: var(--code_bg);
+      }
+      .viewer_code {
+        position: absolute;
+        inset: 0;
+        overflow: auto;
+        color: #d8dbe6;
+      }
+      .viewer_code pre {
+        padding: clamp(16px, 3vw, 36px);
+        font-family: var(--mono);
+        font-size: clamp(12px, 1.1vw, 15px);
+        line-height: 1.75;
+      }
+
+      /* Live app: framed like a browser window pinned to the page */
+      .viewer_app {
+        position: absolute;
+        inset: clamp(10px, 2vw, 28px);
+        display: grid;
+        grid-template-rows: auto 1fr;
+        border: 1px solid var(--ink);
+        background: var(--paper);
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+      .app_bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        padding: 8px 12px;
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .app_dots {
+        display: flex;
+        gap: 5px;
+        flex-shrink: 0;
+      }
+      .app_dots i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: 1px solid var(--paper);
+      }
+      .app_dots i:first-child {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      .app_url {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--accent_light);
+      }
+      .viewer_app iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: #fff;
+      }
+      .viewer_open {
+        justify-content: center;
+      }
+      /* On phones the info panel scrolls, so pin the main action to its
+         bottom edge instead of leaving it below the fold. */
+      @media (max-width: 899px) {
+        .viewer_open {
+          position: sticky;
+          bottom: 0;
+          box-shadow: 0 -12px 16px var(--paper);
+        }
+      }
       .viewer_info {
         display: flex;
         flex-direction: column;
@@ -1712,12 +1819,16 @@
           padding: 26px 22px;
         }
       }
+      /* The panel is ~294px wide on desktop. 46px keeps a 13 letter word
+         like ACCOMMODATION inside it; overflow-wrap is the safety net for
+         anything longer. */
       .viewer_info h3 {
         font-family: var(--display);
         font-weight: 400;
         text-transform: uppercase;
-        font-size: clamp(34px, 4vw, 54px);
+        font-size: clamp(32px, 3.4vw, 46px);
         line-height: 0.9;
+        overflow-wrap: anywhere;
       }
       .viewer_info .eyebrow {
         margin-bottom: 0;
@@ -1944,13 +2055,13 @@
 
     <!-- ================= NAV ================= -->
     <nav class="nav" aria-label="Main">
-      <a class="nav_mark" href="#top">T<span>.</span>Nkuna</a>
+      <a class="nav_mark" href="#top">Tiyani<span>.</span>N</a>
       <ul class="nav_links label">
         <li><a href="#story">Story</a></li>
         <li><a href="#index">Index</a></li>
         <li><a href="#cases">Case files</a></li>
         <li><a href="#market">Skills</a></li>
-        <li><a href="#cuttings">Cuttings</a></li>
+        <li><a href="#credentials">Credentials</a></li>
         <li class="nav_cta"><a href="#contact">Hire</a></li>
       </ul>
     </nav>
@@ -1962,7 +2073,6 @@
           ><span class="blink"></span
           ><span id="today_line">Pretoria, South Africa</span></span
         >
-        <span>Vol. 2026 &middot; Edition: Open to work</span>
         <span>Price: one interview</span>
       </div>
 
@@ -2007,7 +2117,11 @@
                 />
               </defs>
               <text>
-                <textPath href="#sticker_circle">
+                <textPath
+                  href="#sticker_circle"
+                  textLength="238.8"
+                  lengthAdjust="spacing"
+                >
                   Open to work &#10022; Data science &#10022; Junior dev
                   &#10022;
                 </textPath>
@@ -2017,7 +2131,7 @@
           </div>
           <figure class="portrait">
             <img
-              src="./Picture.jpeg"
+              src="./assets/images/portrait.jpeg"
               alt="Tiyani Nkuna in a white shirt and a Tshwane University of Technology tie"
               width="824"
               height="947"
@@ -2219,7 +2333,7 @@
               <div class="case_media">
                 <span class="label">Systems analysis</span
                 ><img
-                  src="./Dataflow.jpeg"
+                  src="./assets/images/dataflow.jpeg"
                   alt="Data flow diagram for a student accommodation system"
                   data-zoom
                   loading="lazy"
@@ -2245,9 +2359,12 @@
               <div class="case_media code_media">
                 <div class="sql_head">
                   <span class="label">bookstore_schema.sql</span
-                  ><button type="button" id="copy_sql_btn">Copy</button>
+                  ><span class="sql_actions"
+                    ><button type="button" id="expand_sql_btn">Expand</button
+                    ><button type="button" id="copy_sql_btn">Copy</button></span
+                  >
                 </div>
-                <div class="sql_view">
+                <div class="sql_view" id="sql_view" data-expand_code>
                   <pre><code id="sql_snippet"><span class="sql_comment">-- Database initialisation</span>
 <span class="sql_kw">CREATE DATABASE</span> BookstoreDB;
 <span class="sql_kw">USE</span> BookstoreDB;
@@ -2295,7 +2412,7 @@
               <div class="case_media">
                 <span class="label">Project management</span
                 ><img
-                  src="./Arena.jpeg"
+                  src="./assets/images/arena.jpeg"
                   alt="Female only esports event arena at TUT Soshanguve"
                   data-zoom
                   loading="lazy"
@@ -2320,21 +2437,23 @@
               <div class="case_media">
                 <div class="dev_pair">
                   <a
+                    data-app="Auth"
                     href="https://auth-monorepo-nhqu-4pwql7tql-ntsocialxs-projects.vercel.app/login"
                     target="_blank"
                     rel="noopener noreferrer"
                     ><img
-                      src="./Auth.png"
+                      src="./assets/images/auth.png"
                       alt="Auth login screen"
                       loading="lazy"
                     /><span class="label">Auth</span></a
                   >
                   <a
+                    data-app="Book4Q"
                     href="https://tutbooking-gwiclpux1-ntsocialxs-projects.vercel.app/"
                     target="_blank"
                     rel="noopener noreferrer"
                     ><img
-                      src="./Booking.png"
+                      src="./assets/images/booking.png"
                       alt="Book4Q booking prototype"
                       loading="lazy"
                     /><span class="label">Book4Q</span></a
@@ -2456,16 +2575,17 @@
                 ><span class="tag">TOGAF</span>
               </div>
             </div>
-            <!-- TODO: confirm with Tiyani -->
+            <!-- Confirmed by Tiyani: Power BI and data modelling are part of
+                 the current programme; data science is planned self-study. -->
             <div class="ad ad_inverse reveal delay_2">
               <h4><span>Watchlist</span><em>Learning now</em></h4>
               <div class="tags">
-                <span class="tag">Python</span><span class="tag">pandas</span
-                ><span class="tag">SQL for analytics</span
-                ><span class="tag">Data visualisation</span>
+                <span class="tag">Power BI</span
+                ><span class="tag">Data modelling</span
+                ><span class="tag">Data visualisation</span
+                ><span class="tag tag_next">Next: Python for data science</span>
               </div>
             </div>
-            <!-- /TODO -->
             <div class="ad reveal delay_3">
               <h4><span>Also available</span><em>Soft skills</em></h4>
               <div class="tags">
@@ -2482,22 +2602,20 @@
         </div>
       </section>
 
-      <!-- ================= 05 CUTTINGS ================= -->
+      <!-- ================= 05 CREDENTIALS ================= -->
       <section
         class="section section_flush"
-        id="cuttings"
-        aria-labelledby="cuttings_heading"
+        id="credentials"
+        aria-labelledby="credentials_heading"
       >
         <div class="section_head reveal">
           <span class="sec_num" aria-hidden="true">05</span>
           <div>
             <span class="label eyebrow">From the archive</span>
-            <h2 class="headline" id="cuttings_heading">
-              Cuttings &amp;<br />certificates
-            </h2>
+            <h2 class="headline" id="credentials_heading">Credentials</h2>
           </div>
           <div class="section_meta label">
-            <span>6 clippings</span><span>Select one to enlarge</span>
+            <span>6 credentials</span><span>Select one to enlarge</span>
           </div>
         </div>
         <!-- rendered from CERTIFICATES in the script (BLOCK: certificate_data) -->
@@ -2621,7 +2739,7 @@
     >
       <div class="viewer_sheet">
         <div class="modal_bar">
-          <span class="label">Enlarged clipping</span>
+          <span class="label" id="viewer_kind">Case file</span>
           <span
             class="label viewer_count"
             id="viewer_count"
@@ -2632,20 +2750,29 @@
         <div class="viewer_layout">
           <div class="viewer_stage" id="viewer_stage">
             <img id="viewer_img" src="" alt="" draggable="false" />
+            <div class="viewer_code" id="viewer_code" hidden>
+              <pre><code id="viewer_code_body"></code></pre>
+            </div>
+            <div class="viewer_app" id="viewer_app" hidden>
+              <div class="app_bar">
+                <span class="app_dots" aria-hidden="true"
+                  ><i></i><i></i><i></i
+                ></span>
+                <span class="app_url label" id="viewer_app_url"></span>
+              </div>
+              <iframe
+                id="viewer_frame"
+                title="Live app preview"
+                src="about:blank"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                referrerpolicy="no-referrer"
+              ></iframe>
+            </div>
           </div>
           <div class="viewer_info">
             <span class="label eyebrow" id="viewer_category"></span>
             <h3 id="viewer_title"></h3>
-            <dl class="viewer_meta">
-              <div id="viewer_issuer_row">
-                <dt class="label dim">Issued by</dt>
-                <dd id="viewer_issuer"></dd>
-              </div>
-              <div id="viewer_date_row">
-                <dt class="label dim">Date</dt>
-                <dd id="viewer_date"></dd>
-              </div>
-            </dl>
+            <dl class="viewer_meta" id="viewer_meta"></dl>
             <p class="viewer_blurb" id="viewer_blurb"></p>
             <div class="viewer_nav">
               <button type="button" class="btn" id="viewer_prev">
@@ -2659,11 +2786,22 @@
               >
                 Zoom
               </button>
+              <button type="button" class="btn" id="viewer_copy" hidden>
+                Copy
+              </button>
               <button type="button" class="btn btn_accent" id="viewer_next">
                 Next &rarr;
               </button>
             </div>
-            <p class="viewer_hint label">
+            <a
+              class="btn btn_accent viewer_open"
+              id="viewer_open"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              hidden
+            ></a>
+            <p class="viewer_hint label" id="viewer_hint">
               Click to zoom &middot; drag to pan &middot; arrow keys to browse
             </p>
             <a
@@ -2733,12 +2871,18 @@
           "<svg xmlns='http://www.w3.org/2000/svg' width='600' height='420'><rect width='600' height='420' fill='#16181f'/><g font-family='monospace' font-size='22' fill='#8aa2ff'><text x='30' y='70'>CREATE TABLE Books (</text><text x='60' y='110' fill='#d8dbe6'>BookID INT PRIMARY KEY,</text><text x='60' y='150' fill='#d8dbe6'>Title VARCHAR(150),</text><text x='60' y='190' fill='#f0b86e'>FOREIGN KEY (AuthorID)</text><text x='30' y='230'>);</text><text x='30' y='300'>SELECT ... JOIN ...</text></g></svg>",
         );
 
+      // Entries with an `app` open in the viewer as a live preview:
+      //   url    where the app lives (also used by the Open app button)
+      //   embed  true to load it in a frame; false shows the screenshot,
+      //          for sites that refuse to be framed (X-Frame-Options)
+      //   kind   top-bar label in the viewer ("Live app" or "Game")
+      //   label  text on the open button
       const PROJECTS = Object.freeze([
         {
           name: "Accommodation DFD",
           tag: "Systems analysis",
           year: "Analysis",
-          img: ROOT + "Dataflow.jpeg",
+          img: ROOT + "assets/images/dataflow.jpeg",
           desc: "Designed a Data Flow Diagram and system architecture covering student registration, property availability, booking capture, bursary funding verification and administrative reporting.",
           facts: [
             ["Type", "Data flow diagram"],
@@ -2762,7 +2906,7 @@
           name: "Esports Arena",
           tag: "Project management",
           year: "Mar 2026",
-          img: ROOT + "Arena.jpeg",
+          img: ROOT + "assets/images/arena.jpeg",
           desc: "Coordinated a women-empowering, female only esports tournament powered by Red Bull at the TUT Soshanguve Campus.",
           facts: [
             ["Date", "27 March 2026"],
@@ -2772,9 +2916,15 @@
         },
         {
           name: "Auth",
+          app: {
+            url: "https://auth-monorepo-nhqu-4pwql7tql-ntsocialxs-projects.vercel.app/login",
+            embed: false,
+            kind: "Live app",
+            label: "Open app",
+          },
           tag: "Full-stack web",
           year: "Live",
-          img: ROOT + "Auth.png",
+          img: ROOT + "assets/images/auth.png",
           desc: "Built an authentication monorepo with a working login flow and shipped it to Vercel.",
           facts: [
             ["Type", "Auth / login"],
@@ -2789,9 +2939,15 @@
         },
         {
           name: "Book4Q",
+          app: {
+            url: "https://tutbooking-gwiclpux1-ntsocialxs-projects.vercel.app/",
+            embed: false,
+            kind: "Live app",
+            label: "Open app",
+          },
           tag: "Prototype",
           year: "Live",
-          img: ROOT + "Booking.png",
+          img: ROOT + "assets/images/booking.png",
           desc: "Built a booking prototype with first-year students in mind.",
           facts: [
             ["Audience", "First years"],
@@ -2806,6 +2962,12 @@
         },
         {
           name: "4IR Wave",
+          app: {
+            url: "https://drone-and-agriculture-red.vercel.app/",
+            embed: true,
+            kind: "Live app",
+            label: "Open app",
+          },
           tag: "Drone & agriculture",
           year: "Live",
           img: "https://portal.4irtut.co.za/static/media/logo_resized.d6d2bca69c278a906532.jpg",
@@ -2820,9 +2982,15 @@
         },
         {
           name: "FYC Council",
+          app: {
+            url: "https://fyc-xi.vercel.app/",
+            embed: true,
+            kind: "Live app",
+            label: "Open app",
+          },
           tag: "First Year Council",
           year: "Live",
-          img: ROOT + "Logo.jpeg",
+          img: ROOT + "assets/images/fyc_logo.jpeg",
           desc: "The web home for the First Year Council, built to empower incoming students.",
           facts: [
             ["Org", "First Year Council"],
@@ -2834,7 +3002,7 @@
           name: "FYC Gaming",
           tag: "Event management",
           year: "Event",
-          img: ROOT + "FYC%20Gaming%20Event%20.jpeg",
+          img: ROOT + "assets/images/fyc_gaming_event.jpeg",
           desc: "Coordinated a gaming-focused community event that brought together players, competition and digital entertainment.",
           facts: [
             ["Type", "Gaming event"],
@@ -2844,39 +3012,57 @@
         },
         {
           name: "Snake",
+          app: {
+            url: ROOT + "games/snake/index.html",
+            embed: true,
+            kind: "Game",
+            label: "Play full screen",
+          },
           tag: "Mini game",
           year: "Play",
-          img: ROOT + "Snake%20Game.png",
+          img: ROOT + "assets/images/snake_game.png",
           desc: "A browser Snake game built with HTML, CSS and JavaScript.",
           facts: [
             ["Stack", "HTML / CSS / JS"],
             ["Platform", "Browser"],
           ],
-          links: [["Play it", ROOT + "Game/Snake%20Game/index.html"]],
+          links: [["Play it", ROOT + "games/snake/index.html"]],
         },
         {
           name: "Tiyani Run I",
+          app: {
+            url: ROOT + "games/tiyani_run_v1.html",
+            embed: true,
+            kind: "Game",
+            label: "Play full screen",
+          },
           tag: "Mini game",
           year: "Play",
-          img: ROOT + "background.png",
+          img: ROOT + "games/assets/tiyani_run_v1_background.png",
           desc: "A mini runner game to pass the time.",
           facts: [
             ["Stack", "HTML / JS"],
             ["Version", "1"],
           ],
-          links: [["Play it", ROOT + "TiyaniRunV1.html"]],
+          links: [["Play it", ROOT + "games/tiyani_run_v1.html"]],
         },
         {
           name: "Tiyani Run II",
+          app: {
+            url: ROOT + "games/tiyani_run_v2.html",
+            embed: true,
+            kind: "Game",
+            label: "Play full screen",
+          },
           tag: "Mini game",
           year: "Play",
-          img: ROOT + "background2.png",
+          img: ROOT + "games/assets/tiyani_run_v2_background.png",
           desc: "The second version of the runner, with its own soundtrack.",
           facts: [
             ["Stack", "HTML / JS"],
             ["Version", "2"],
           ],
-          links: [["Play it", ROOT + "TiyaniRunV2.html"]],
+          links: [["Play it", ROOT + "games/tiyani_run_v2.html"]],
         },
       ]);
 
@@ -3176,7 +3362,7 @@
 
       /* ===== BLOCK: certificate_data ===== */
 
-      const CERT_DIR = ROOT + "Certificates/";
+      const CERT_DIR = ROOT + "certificates/";
 
       const CERTIFICATES = Object.freeze([
         {
@@ -3190,7 +3376,7 @@
           tilt: -2,
           blurb:
             "Built effective charts in spreadsheet software and learned to choose the right chart type for the data.",
-          pdf: "Hp2.pdf",
+          pdf: "hp_life_presenting_data.pdf",
         },
         {
           slug: "cce_volunteer",
@@ -3203,7 +3389,7 @@
           tilt: 1.6,
           blurb:
             "Recognised as a volunteer in the Soshanguve Campus Cleaning Campaign.",
-          pdf: "CCE%20Volunteer%20.pdf",
+          pdf: "cce_volunteer.pdf",
         },
         {
           slug: "deputy_secretary_ict",
@@ -3215,7 +3401,7 @@
           category: "Leadership",
           tilt: -1,
           blurb: "Leadership Award as an SFC member and ICT Deputy Secretary.",
-          pdf: "Deputy%20Secretary%20ICT.pdf",
+          pdf: "deputy_secretary_ict.pdf",
         },
         {
           slug: "gkss_2024",
@@ -3227,7 +3413,7 @@
           category: "Leadership / Finance",
           tilt: 2.2,
           blurb: "Certificate for serving as GKSS Treasurer.",
-          pdf: "GKSS%202024.pdf",
+          pdf: "gkss_2024.pdf",
         },
         {
           slug: "hp_life_finding_funding",
@@ -3239,7 +3425,7 @@
           tilt: -1.8,
           blurb:
             "Completed the HP LIFE online course on finding funding for a business.",
-          pdf: "Hp1.pdf",
+          pdf: "hp_life_finding_funding.pdf",
         },
         {
           slug: "hp_life_social_media_marketing",
@@ -3251,7 +3437,7 @@
           tilt: 1.2,
           blurb:
             "Completed the HP LIFE online course on social media marketing.",
-          pdf: "Hp3.pdf",
+          pdf: "hp_life_social_media_marketing.pdf",
         },
       ]);
 
@@ -3261,12 +3447,15 @@
        * @returns {object} Viewer item with full image, meta and PDF link.
        */
       const cert_to_item = (cert) => ({
+        kind: "Credential",
         full: CERT_DIR + "previews/" + cert.slug + ".jpg",
         alt: cert.title + " certificate, issued by " + cert.issuer,
         title: cert.title,
         category: cert.category,
-        issuer: cert.issuer,
-        date: cert.date,
+        meta: [
+          ["Issued by", cert.issuer],
+          ["Date", cert.date],
+        ],
         blurb: cert.blurb,
         pdf: CERT_DIR + cert.pdf,
       });
@@ -3319,6 +3508,38 @@
         );
 
       /**
+       * Decide how the viewer stage should present an item.
+       * @param {object} item Viewer item.
+       * @returns {"image"|"code"|"frame"} Stage mode.
+       */
+      const view_mode = (item) => {
+        if (item.code_html) return "code";
+        if (item.app && item.app.embed) return "frame";
+        return "image";
+      };
+
+      /**
+       * Build the label / value rows shown beside the stage.
+       * @param {Array<Array<string>>} meta Label / value pairs.
+       * @returns {string} Definition list markup.
+       */
+      const render_meta = (meta) =>
+        meta
+          .map(
+            ([key, value]) =>
+              `<div><dt class="label dim">${escape_html(key)}</dt><dd>${escape_html(value)}</dd></div>`,
+          )
+          .join("");
+
+      /**
+       * Strip the protocol so a URL reads cleanly in the fake address bar.
+       * @param {string} url Absolute or relative URL.
+       * @returns {string} Display text.
+       */
+      const display_url = (url) =>
+        new URL(url, window.location.href).href.replace(/^https?:\/\//, "");
+
+      /**
        * Build the clipping viewer: prev/next, keys, swipe, zoom + pan, focus trap.
        * @returns {{open_viewer: function(Array<object>, number, HTMLElement): void}} Viewer API.
        */
@@ -3369,23 +3590,50 @@
           by_id(id).textContent = text || "";
         };
 
+        // about:blank (not just removing src) is what actually unloads the
+        // page, so a game's soundtrack stops when the viewer moves on.
+        const set_frame = (url) => {
+          const frame_el = by_id("viewer_frame");
+          const next_src = url || "about:blank";
+          if (frame_el.getAttribute("src") !== next_src)
+            frame_el.src = next_src;
+          set_text("viewer_app_url", url ? display_url(url) : "");
+        };
+
         const show = (index) => {
           const total = state.items.length;
           state.index = wrap_index(index, total);
           const item = state.items[state.index];
-          img_el.src = item.full;
-          img_el.alt = item.alt || item.title;
+          const mode = view_mode(item);
+          stage_el.dataset.mode = mode;
+          img_el.hidden = mode !== "image";
+          by_id("viewer_code").hidden = mode !== "code";
+          by_id("viewer_app").hidden = mode !== "frame";
+          by_id("viewer_code_body").innerHTML =
+            mode === "code" ? item.code_html : "";
+          if (mode === "image") {
+            img_el.src = item.full;
+            img_el.alt = item.alt || item.title;
+          }
+          set_frame(mode === "frame" ? item.app.url : "");
+          zoom_btn.hidden = mode !== "image";
+          by_id("viewer_hint").hidden = mode !== "image";
+          by_id("viewer_copy").hidden = mode !== "code";
+          by_id("viewer_open").hidden = !item.app;
+          if (item.app) {
+            by_id("viewer_open").href = item.app.url;
+            by_id("viewer_open").textContent = item.app.label + " \u2197";
+          }
+          set_text("viewer_kind", item.kind || "Case file");
+          by_id("viewer_meta").innerHTML = render_meta(item.meta || []);
+          by_id("viewer_meta").hidden = !(item.meta && item.meta.length);
           set_text("viewer_title", item.title);
           set_text("viewer_category", item.category);
-          set_text("viewer_issuer", item.issuer);
-          set_text("viewer_date", item.date);
           set_text("viewer_blurb", item.blurb);
           set_text(
             "viewer_count",
             total > 1 ? format_counter(state.index, total) : "",
           );
-          by_id("viewer_issuer_row").hidden = !item.issuer;
-          by_id("viewer_date_row").hidden = !item.date;
           by_id("viewer_blurb").hidden = !item.blurb;
           by_id("viewer_prev").hidden = total < 2;
           by_id("viewer_next").hidden = total < 2;
@@ -3393,7 +3641,8 @@
           if (item.pdf) by_id("viewer_pdf").href = item.pdf;
           set_zoom(false, 0, 0);
           [state.index - 1, state.index + 1].forEach((n) => {
-            new Image().src = state.items[wrap_index(n, total)].full;
+            const next_full = state.items[wrap_index(n, total)].full;
+            if (next_full) new Image().src = next_full;
           });
         };
 
@@ -3414,6 +3663,7 @@
           viewer_el.classList.remove("is_open");
           viewer_el.setAttribute("aria-hidden", "true");
           document.body.style.overflow = "";
+          set_frame("");
           if (state.last_focus) state.last_focus.focus();
         };
 
@@ -3432,6 +3682,7 @@
         };
 
         stage_el.addEventListener("pointerdown", (event) => {
+          if (stage_el.dataset.mode !== "image") return;
           state.drag = {
             x0: event.clientX,
             y0: event.clientY,
@@ -3493,6 +3744,12 @@
         by_id("viewer_next").addEventListener("click", () =>
           show(state.index + 1),
         );
+        by_id("viewer_copy").addEventListener("click", () =>
+          copy_with_feedback(
+            by_id("viewer_copy"),
+            state.items[state.index].code_text,
+          ),
+        );
         by_id("viewer_close").addEventListener("click", close_viewer);
         viewer_el.addEventListener("click", (event) => {
           if (event.target === viewer_el) close_viewer();
@@ -3547,6 +3804,29 @@
       /* ===== BLOCK: zoom_images ===== */
 
       /**
+       * Turn a zoomable case image into a viewer item. Title, label and blurb
+       * come from the surrounding case card; the alt text stays as the
+       * image description for screen readers.
+       * @param {HTMLImageElement} img Image marked data-zoom.
+       * @returns {object} Viewer item in image mode.
+       */
+      const zoom_image_to_item = (img) => {
+        const card_el = img.closest(".case_card");
+        const pick = (selector) => {
+          const el = card_el && card_el.querySelector(selector);
+          return el ? tidy_text(el.textContent) : "";
+        };
+        return {
+          kind: "Case file",
+          full: img.src,
+          alt: img.alt,
+          title: pick(".case_body h3") || img.alt,
+          category: pick(".case_media > .label"),
+          blurb: pick(".case_body p"),
+        };
+      };
+
+      /**
        * Open case file images marked data-zoom in the viewer as single items.
        * @param {function(Array<object>, number, HTMLElement): void} open_viewer Viewer opener.
        * @returns {void}
@@ -3554,23 +3834,31 @@
       const init_zoom_images = (open_viewer) => {
         document.querySelectorAll("[data-zoom]").forEach((img) => {
           img.addEventListener("click", () =>
-            open_viewer(
-              [
-                {
-                  full: img.src,
-                  alt: img.alt,
-                  title: img.alt,
-                  category: "Case file",
-                },
-              ],
-              0,
-              img,
-            ),
+            open_viewer([zoom_image_to_item(img)], 0, img),
           );
         });
       };
 
       /* ===== BLOCK: copy_sql ===== */
+
+      /**
+       * Copy text and flash "Copied" on the button that asked for it.
+       * @param {HTMLElement} btn Button to relabel briefly.
+       * @param {string} text Text to put on the clipboard.
+       * @returns {void}
+       */
+      const copy_with_feedback = (btn, text) => {
+        if (!navigator.clipboard || !text) return;
+        navigator.clipboard.writeText(text).then(
+          () => {
+            btn.textContent = "Copied";
+            setTimeout(() => {
+              btn.textContent = "Copy";
+            }, 1800);
+          },
+          () => {},
+        );
+      };
 
       /**
        * Wire the copy button on the SQL case file.
@@ -3579,18 +3867,113 @@
       const init_copy_sql = () => {
         const btn = document.getElementById("copy_sql_btn");
         const code_el = document.getElementById("sql_snippet");
-        if (!btn || !code_el || !navigator.clipboard) return;
-        btn.addEventListener("click", () => {
-          navigator.clipboard.writeText(code_el.innerText).then(
-            () => {
-              btn.textContent = "Copied";
-              setTimeout(() => {
-                btn.textContent = "Copy";
-              }, 1800);
-            },
-            () => {},
-          );
+        if (!btn || !code_el) return;
+        btn.addEventListener("click", () =>
+          copy_with_feedback(btn, code_el.innerText),
+        );
+      };
+
+      /* ===== BLOCK: expand_code ===== */
+
+      /**
+       * Collapse runs of whitespace left over from HTML indentation.
+       * @param {string} text Raw text content.
+       * @returns {string} Single-spaced, trimmed text.
+       */
+      const tidy_text = (text) => text.replace(/\s+/g, " ").trim();
+
+      /**
+       * Turn the SQL case file into a single viewer item in code mode.
+       * @param {HTMLElement} code_el The <code> holding the highlighted SQL.
+       * @param {HTMLElement} card_el The surrounding case card.
+       * @returns {object} Viewer item.
+       */
+      const code_to_item = (code_el, card_el) => ({
+        kind: "Case file",
+        code_html: code_el.innerHTML,
+        code_text: code_el.innerText,
+        title: tidy_text(card_el.querySelector("h3").textContent),
+        category: "bookstore_schema.sql",
+        blurb: tidy_text(card_el.querySelector(".case_body p").textContent),
+        meta: PROJECTS.find((project) => project.name === "Bookstore DB").facts,
+      });
+
+      /**
+       * Open the SQL case file in the viewer from the Expand button or a
+       * click on the code itself (ignored while text is being selected).
+       * @param {function(Array<object>, number, HTMLElement): void} open_viewer Viewer opener.
+       * @returns {void}
+       */
+      const init_expand_code = (open_viewer) => {
+        const view_el = document.getElementById("sql_view");
+        const btn = document.getElementById("expand_sql_btn");
+        const code_el = document.getElementById("sql_snippet");
+        if (!view_el || !btn || !code_el) return;
+        const card_el = view_el.closest(".case_card");
+        const open = () =>
+          open_viewer([code_to_item(code_el, card_el)], 0, btn);
+        btn.addEventListener("click", open);
+        view_el.addEventListener("click", () => {
+          if (!String(window.getSelection())) open();
         });
+      };
+
+      /* ===== BLOCK: app_preview ===== */
+
+      /**
+       * Every project that has a live app, in index order.
+       * @returns {Array<object>} Projects with an `app` field.
+       */
+      const app_projects = () => PROJECTS.filter((project) => project.app);
+
+      /**
+       * Turn a project with an app into a viewer item.
+       * @param {object} project Project entry with an `app` field.
+       * @returns {object} Viewer item in frame or image mode.
+       */
+      const project_to_app_item = (project) => ({
+        kind: project.app.kind,
+        app: project.app,
+        full: project_image(project),
+        alt: project.name + " screenshot",
+        title: project.name,
+        category: project.tag,
+        blurb: project.desc,
+        meta: project.facts,
+      });
+
+      /**
+       * Open one project's app in the viewer, with prev/next across all apps.
+       * @param {function(Array<object>, number, HTMLElement): void} open_viewer Viewer opener.
+       * @param {string} name Project name to start on.
+       * @param {HTMLElement} trigger Element to return focus to.
+       * @returns {void}
+       */
+      const open_app = (open_viewer, name, trigger) => {
+        const list = app_projects();
+        const start = list.findIndex((project) => project.name === name);
+        open_viewer(list.map(project_to_app_item), Math.max(start, 0), trigger);
+      };
+
+      /**
+       * Route index rows: apps open the viewer, everything else the drawer.
+       * Also turns the Auth / Book4Q case links into previews. The links keep
+       * their href, so they still work without JavaScript.
+       * @param {function(Array<object>, number, HTMLElement): void} open_viewer Viewer opener.
+       * @param {function(number, HTMLElement): void} open_drawer Drawer opener.
+       * @returns {function(number, HTMLElement): void} Row select handler.
+       */
+      const init_app_preview = (open_viewer, open_drawer) => {
+        document.querySelectorAll("[data-app]").forEach((link) => {
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+            open_app(open_viewer, link.dataset.app, link);
+          });
+        });
+        return (index, trigger) =>
+          PROJECTS[index].app
+            ? open_app(open_viewer, PROJECTS[index].name, trigger)
+            : open_drawer(index, trigger);
       };
 
       /* ===== BLOCK: sparklines ===== */
@@ -3776,10 +4159,14 @@
       init_dateline();
       init_fit_text();
       init_tickers();
-      init_work_index(init_drawer().open_drawer);
       const viewer_api = init_clipping_viewer();
+      const drawer_api = init_drawer();
+      init_work_index(
+        init_app_preview(viewer_api.open_viewer, drawer_api.open_drawer),
+      );
       init_cuttings(viewer_api.open_viewer);
       init_zoom_images(viewer_api.open_viewer);
+      init_expand_code(viewer_api.open_viewer);
       init_copy_sql();
       init_sparklines();
       init_reveal();
